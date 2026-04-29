@@ -10,7 +10,7 @@ Secrets configured at **repo settings → Secrets and variables → Actions**, e
 | `ASC_ISSUER_ID` | Issuer ID (UUID) at the top of the API Keys page | App Store Connect → Users and Access → Keys |
 | `ASC_KEY_CONTENT` | The `.p8` private-key file, **base64-encoded** (see below) | Downloaded once when key is created — Apple does not allow re-download |
 | `MATCH_PASSWORD` | Passphrase used to encrypt certs/profiles in `autoapp-certs` | Pick a strong random string the first time `fastlane match` runs |
-| `MATCH_GIT_BASIC_AUTHORIZATION` | `base64(github_username:PAT)` for read access to private `autoapp-certs` | GitHub PAT with `repo` scope, base64-encode `username:token` |
+| `MATCH_GIT_BASIC_AUTHORIZATION` | `base64(github_username:PAT)` for access to private `autoapp-certs` | GitHub PAT with `repo` scope (full read+write — write is needed only by `init_signing.yml`; everyday `testflight.yml` uses `readonly: true` at the fastlane layer) |
 | `FASTLANE_USER` | Apple ID email (`sh1990914@hotmail.com`) | — |
 | `TEAM_ID` | Apple Developer Team ID (10-char) | App Store Connect → Membership |
 | `ITC_TEAM_ID` | App Store Connect Team ID (numeric) | First `fastlane deliver` run prints it; or fetch via `fastlane spaceship` |
@@ -29,9 +29,23 @@ certutil -encode AuthKey_XXXXXXXXXX.p8 tmp.b64 && type tmp.b64   # Windows (then
 echo -n "jiejuefuyou:ghp_xxxxxxxxxxxx" | base64
 ```
 
-## One-time bootstrap (run from a Mac, not CI)
+## One-time bootstrap
 
-After all secrets above are set, on a Mac with Xcode + fastlane:
+**Preferred path — run on a GitHub Actions runner (no Mac required):**
+
+After all secrets above are set:
+
+1. Go to `Actions` → **Init Signing** → `Run workflow`.
+2. Pick `type: appstore` (most common). Leave `force: false` unless you've already run it once and need to recreate.
+3. Workflow runs on macos-15, calls `fastlane match` with `readonly: false`, which:
+   - Creates appstore distribution cert + provisioning profile in App Store Connect (via the API key)
+   - Encrypts them with `MATCH_PASSWORD`
+   - Pushes them to `autoapp-certs`
+4. Re-run with `type: development` if you want a development cert too (only needed for local debug-on-device, not for TestFlight).
+
+After this, `testflight.yml` can run unattended — it pulls the encrypted certs (`readonly: true`) and uses them to sign release builds.
+
+**Alternative path — run from a Mac:**
 
 ```sh
 git clone https://github.com/jiejuefuyou/autoapp-hello
@@ -42,8 +56,6 @@ export ASC_KEY_ID=… ASC_ISSUER_ID=… ASC_KEY_CONTENT="$(base64 -i AuthKey_XXX
        MATCH_PASSWORD=… FASTLANE_USER=… TEAM_ID=…
 bundle exec fastlane init_signing
 ```
-
-This creates the appstore + development certificates and provisioning profiles, encrypts them with `MATCH_PASSWORD`, and pushes them to `autoapp-certs`. From that point on, CI can sign with `readonly: true` (no admin keys leak to runners).
 
 ## Rotation
 
