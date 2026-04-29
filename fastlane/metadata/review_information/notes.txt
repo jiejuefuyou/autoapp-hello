@@ -1,0 +1,3 @@
+AutoChoice is a fully offline decision-making utility. There is no account system, no server, and no required user data — the app can be used immediately on launch with the seeded "What to eat?" list. No demo credentials needed.
+
+The single in-app purchase (com.jiejuefuyou.autochoice.premium, $2.99 one-time non-consumable) unlocks unlimited lists/choices, all 12 themes, decision history, and share cards. Free tier is fully functional with one list of up to 6 choices.

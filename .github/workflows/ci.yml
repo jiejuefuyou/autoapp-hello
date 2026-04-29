@@ -34,8 +34,8 @@ jobs:
           xcodebuild -version
           swift --version
 
-      - name: Install xcodegen
-        run: brew install xcodegen
+      - name: Install xcodegen + imagemagick
+        run: brew install xcodegen imagemagick
 
       - uses: ruby/setup-ruby@v1
         with:

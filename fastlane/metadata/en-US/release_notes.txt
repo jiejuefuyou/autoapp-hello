@@ -1,0 +1,6 @@
+First release.
+
+• Spin a customizable wheel to settle decisions
+• 12 color themes
+• Saved lists, decision history, share cards (premium)
+• Completely offline. Zero data collection.

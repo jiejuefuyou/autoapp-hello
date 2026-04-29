@@ -48,3 +48,6 @@ fastlane/README.md
 # IDE
 .vscode/
 .idea/
+
+# Generated icon (re-created by scripts/generate_icons.sh on each CI run)
+AutoChoice/Resources/Assets.xcassets/AppIcon.appiconset/icon.png

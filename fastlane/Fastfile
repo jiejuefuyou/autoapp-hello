@@ -12,8 +12,9 @@ platform :ios do
     end
   end
 
-  desc "Generate AutoChoice.xcodeproj from project.yml via xcodegen"
+  desc "Generate AutoChoice.xcodeproj from project.yml via xcodegen + (re)build the App Icon"
   lane :generate do
+    sh("cd .. && bash scripts/generate_icons.sh || true")
     sh("cd .. && xcodegen generate")
   end
 
@@ -69,6 +70,35 @@ platform :ios do
       skip_waiting_for_build_processing:  true,
       skip_submission:                    true,
       changelog:                          ENV["BETA_CHANGELOG"] || "Automated build from CI."
+    )
+  end
+
+  desc "Push App Store metadata + the latest TestFlight build into App Store review (no auto-release)"
+  lane :release do
+    api_key = app_store_connect_api_key(
+      key_id:                ENV.fetch("ASC_KEY_ID"),
+      issuer_id:             ENV.fetch("ASC_ISSUER_ID"),
+      key_content:           ENV.fetch("ASC_KEY_CONTENT"),
+      is_key_content_base64: true,
+      duration:              1200,
+      in_house:              false
+    )
+
+    upload_to_app_store(
+      api_key:                          api_key,
+      app_identifier:                   BUNDLE_ID,
+      submit_for_review:                true,
+      automatic_release:                false,                         # user manually releases when approved
+      submission_information: {
+        add_id_info_uses_idfa:          false,
+        export_compliance_uses_encryption: false,
+        export_compliance_encryption_updated: false
+      },
+      precheck_include_in_app_purchases: true,
+      force:                            true,                          # don't pause on metadata diff prompt
+      skip_screenshots:                 true,                          # screenshots are managed manually for v1; switch to fastlane snapshot in Phase 2
+      skip_binary_upload:               true,                           # binary already uploaded by `beta` lane
+      run_precheck_before_submit:       true
     )
   end
 

@@ -4,6 +4,8 @@ struct ContentView: View {
     @Environment(WheelStore.self) private var store
     @Environment(IAPManager.self) private var iap
 
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding: Bool = false
+
     @State private var showPaywall = false
     @State private var showLists = false
     @State private var showSettings = false
@@ -41,6 +43,12 @@ struct ContentView: View {
             .sheet(isPresented: $showLists) { ChoiceListView() }
             .sheet(isPresented: $showSettings) { SettingsView() }
             .sheet(isPresented: $showHistory) { HistoryView() }
+            .fullScreenCover(isPresented: Binding(
+                get: { !hasSeenOnboarding },
+                set: { _ in /* OnboardingView writes hasSeenOnboarding directly */ }
+            )) {
+                OnboardingView(hasSeenOnboarding: $hasSeenOnboarding)
+            }
         }
     }
 
@@ -68,15 +76,38 @@ struct ContentView: View {
     @ViewBuilder
     private var resultBanner: some View {
         if let result = store.lastResult, !store.isSpinning {
-            Text(result.label)
-                .font(.system(size: 32, weight: .bold, design: .rounded))
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
-                .background(.ultraThinMaterial, in: Capsule())
-                .id(resultBump)
-                .transition(.scale.combined(with: .opacity))
+            HStack(spacing: 8) {
+                Text(result.label)
+                    .font(.system(size: 32, weight: .bold, design: .rounded))
+                shareButton(for: result.label)
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
+            .background(.ultraThinMaterial, in: Capsule())
+            .id(resultBump)
+            .transition(.scale.combined(with: .opacity))
         } else {
             Color.clear.frame(height: 56)
+        }
+    }
+
+    @ViewBuilder
+    private func shareButton(for resultLabel: String) -> some View {
+        if iap.isPremium, let listName = store.activeList?.name {
+            let palette = WheelTheme.by(id: store.selectedThemeID).palette
+            if let cardImage = ShareCardRenderer.render(result: resultLabel, listName: listName, palette: palette) {
+                ShareLink(
+                    item: cardImage,
+                    preview: SharePreview(
+                        "AutoChoice picked: \(resultLabel)",
+                        image: cardImage
+                    )
+                ) {
+                    Image(systemName: "square.and.arrow.up").font(.title3)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Share result")
+            }
         }
     }
 
@@ -99,9 +130,11 @@ struct ContentView: View {
     private func handleSpin() {
         guard !store.isSpinning, let list = store.activeList, !list.choices.isEmpty else { return }
         if list.choices.count > WheelStore.freeChoiceLimit, !iap.isPremium {
+            Haptics.warning()
             showPaywall = true
             return
         }
+        Haptics.medium()
         store.isSpinning = true
         store.spin()
         Task {
@@ -109,6 +142,7 @@ struct ContentView: View {
             await MainActor.run {
                 store.isSpinning = false
                 resultBump += 1
+                Haptics.success()
             }
         }
     }
