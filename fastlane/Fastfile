@@ -18,15 +18,16 @@ platform :ios do
     sh("cd .. && xcodegen generate")
   end
 
-  desc "Run unit tests on a simulator"
+  desc "Run unit tests on a simulator (UI tests live in the screenshots lane)"
   lane :test do
     generate
     run_tests(
-      project:  PROJECT,
-      scheme:   SCHEME,
-      devices:  [TEST_DEVICE],
-      clean:    true,
-      code_coverage: true
+      project:       PROJECT,
+      scheme:        SCHEME,
+      devices:       [TEST_DEVICE],
+      clean:         true,
+      code_coverage: true,
+      only_testing:  ["#{SCHEME}Tests"]
     )
   end
 
