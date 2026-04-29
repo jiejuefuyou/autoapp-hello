@@ -73,6 +73,14 @@ platform :ios do
     )
   end
 
+  desc "Capture App Store screenshots via UI tests on multiple simulators"
+  lane :screenshots do
+    generate
+    capture_ios_screenshots(
+      derived_data_path: "./fastlane/derived_data_screenshots"
+    )
+  end
+
   desc "Push App Store metadata + the latest TestFlight build into App Store review (no auto-release)"
   lane :release do
     api_key = app_store_connect_api_key(

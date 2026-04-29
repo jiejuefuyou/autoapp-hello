@@ -1,0 +1,30 @@
+# Devices required by App Store Connect (one per screen size class):
+#   - 6.7" iPhone (iPhone 15 Pro Max) — required
+#   - 6.1" iPhone (iPhone 15)         — required
+#   - 12.9" iPad Pro                  — optional (skip for v1, add later)
+devices([
+  "iPhone 15 Pro Max",
+  "iPhone 15"
+])
+
+# Languages — one folder per locale under fastlane/screenshots/
+languages([
+  "en-US"
+])
+
+scheme("AutoChoice")
+
+output_directory("./fastlane/screenshots")
+clear_previous_screenshots(true)
+
+# Don't open HTML summary in headless CI.
+skip_open_summary(true)
+
+# Faster: stop on first failure rather than retrying.
+stop_after_first_error(true)
+
+# Concurrent simulators speed it up substantially.
+concurrent_simulators(true)
+
+# Don't reinstall the app each device — keeps test suite snappy.
+reinstall_app(false)

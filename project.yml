@@ -55,16 +55,29 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.jiejuefuyou.autochoice.tests
         BUNDLE_LOADER: "$(TEST_HOST)"
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/AutoChoice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoChoice"
+  AutoChoiceUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: AutoChoiceUITests
+    dependencies:
+      - target: AutoChoice
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jiejuefuyou.autochoice.uitests
+        TEST_TARGET_NAME: AutoChoice
 schemes:
   AutoChoice:
     build:
       targets:
         AutoChoice: all
         AutoChoiceTests: [test]
+        AutoChoiceUITests: [test]
     test:
       config: Debug
       targets:
         - AutoChoiceTests
+        - AutoChoiceUITests
     run:
       config: Debug
     archive:
