@@ -3,8 +3,8 @@
 #   - 6.1" iPhone (iPhone 15)         — required
 #   - 12.9" iPad Pro                  — optional (skip for v1, add later)
 devices([
-  "iPhone 15 Pro Max",
-  "iPhone 15"
+  "iPhone 16 Pro Max",
+  "iPhone 16"
 ])
 
 # Languages — one folder per locale under fastlane/screenshots/
