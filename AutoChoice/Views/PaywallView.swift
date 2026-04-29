@@ -46,12 +46,17 @@ struct PaywallView: View {
                         Text(err).font(.caption).foregroundStyle(.red).padding(.horizontal)
                     }
 
-                    Text(legalese)
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                        .padding(.bottom)
+                    VStack(spacing: 4) {
+                        Label("No subscription. No data collected. Ever.", systemImage: "lock.shield.fill")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                        Text(legalese)
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
                 }
             }
             .toolbar {
