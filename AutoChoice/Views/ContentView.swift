@@ -137,6 +137,8 @@ struct ContentView: View {
                 store.isSpinning = false
                 resultBump += 1
                 Haptics.success()
+                ReviewService.recordSuccess()
+                ReviewService.maybeRequestReview()
             }
         }
     }
