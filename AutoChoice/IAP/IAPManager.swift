@@ -83,6 +83,9 @@ final class IAPManager {
                 entitled = true
             }
         }
-        await MainActor.run { self.isPremium = entitled }
+        // Re-bind to a `let` so the @MainActor closure captures an immutable
+        // value, not a mutable var (Swift 6 strict-concurrency).
+        let finalEntitled = entitled
+        await MainActor.run { self.isPremium = finalEntitled }
     }
 }
