@@ -1,0 +1,70 @@
+name: AutoChoice
+options:
+  bundleIdPrefix: com.jiejuefuyou
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+configs:
+  Debug: debug
+  Release: release
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Manual
+    ENABLE_USER_SCRIPT_SANDBOXING: "YES"
+    GENERATE_INFOPLIST_FILE: "YES"
+    INFOPLIST_KEY_NSHumanReadableCopyright: "Copyright © 2026 jiejuefuyou. All rights reserved."
+targets:
+  AutoChoice:
+    type: application
+    platform: iOS
+    sources:
+      - path: AutoChoice
+        excludes:
+          - "Resources/StoreKitConfiguration.storekit"
+    resources:
+      - path: AutoChoice/Resources/Assets.xcassets
+      - path: AutoChoice/Resources/StoreKitConfiguration.storekit
+        buildPhase: none
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jiejuefuyou.autochoice
+        PRODUCT_NAME: AutoChoice
+        INFOPLIST_KEY_CFBundleDisplayName: AutoChoice
+        INFOPLIST_KEY_UILaunchScreen_Generation: "YES"
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: "YES"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UIRequiresFullScreen: "NO"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SUPPORTS_MACCATALYST: "NO"
+  AutoChoiceTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: AutoChoiceTests
+    dependencies:
+      - target: AutoChoice
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jiejuefuyou.autochoice.tests
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/AutoChoice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoChoice"
+schemes:
+  AutoChoice:
+    build:
+      targets:
+        AutoChoice: all
+        AutoChoiceTests: [test]
+    test:
+      config: Debug
+      targets:
+        - AutoChoiceTests
+    run:
+      config: Debug
+    archive:
+      config: Release

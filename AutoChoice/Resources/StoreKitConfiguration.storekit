@@ -1,0 +1,35 @@
+{
+  "identifier" : "0E0F0001-AC-AC-AC-AUTOCHOICE0001",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : false,
+      "internalID" : "PREMIUM_INTERNAL_ID",
+      "localizations" : [
+        {
+          "description" : "Unlock unlimited choices, all themes, history, and saved lists.",
+          "displayName" : "AutoChoice Premium",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.jiejuefuyou.autochoice.premium",
+      "referenceName" : "Premium",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "AUTOCHOICE_APP",
+    "_developerTeamID" : "",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 0,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
