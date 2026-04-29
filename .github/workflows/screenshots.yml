@@ -48,15 +48,16 @@ jobs:
           path: fastlane/screenshots/**/*.png
           if-no-files-found: error
 
-      - name: Commit screenshots back to repo
+      - name: Commit screenshots + app icon back to repo
         if: ${{ github.event.inputs.commit == 'true' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add fastlane/screenshots
+          git add AutoChoice/Resources/Assets.xcassets/AppIcon.appiconset/icon.png
           if ! git diff --cached --quiet; then
-            git commit -m "chore(ci): refresh App Store screenshots"
+            git commit -m "chore(ci): refresh App Store screenshots + icon"
             git push
           else
-            echo "No screenshot changes to commit."
+            echo "No screenshot/icon changes to commit."
           fi

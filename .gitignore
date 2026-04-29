@@ -32,13 +32,15 @@ Carthage/Build/
 # fastlane
 fastlane/report.xml
 fastlane/Preview.html
-fastlane/screenshots/**/*.png
 fastlane/test_output
 fastlane/README.md
 *.p8
 *.p12
 *.mobileprovision
 *.cer
+# fastlane screenshots and the generated app icon ARE committed —
+# they're build artifacts but they're also what users see on the
+# App Store, so we want them visible at the repo root.
 
 # Secrets / env
 .env
@@ -49,5 +51,3 @@ fastlane/README.md
 .vscode/
 .idea/
 
-# Generated icon (re-created by scripts/generate_icons.sh on each CI run)
-AutoChoice/Resources/Assets.xcassets/AppIcon.appiconset/icon.png
