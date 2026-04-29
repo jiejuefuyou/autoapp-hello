@@ -1,5 +1,10 @@
 # AutoChoice
 
+[![CI](https://github.com/jiejuefuyou/autoapp-hello/actions/workflows/ci.yml/badge.svg)](https://github.com/jiejuefuyou/autoapp-hello/actions/workflows/ci.yml)
+[![Privacy: zero data](https://img.shields.io/badge/privacy-zero%20data%20collected-blue)](PRIVACY.md)
+[![Platform](https://img.shields.io/badge/platform-iOS%2017%2B-lightgrey)]()
+[![Swift](https://img.shields.io/badge/swift-5.9-orange)]()
+
 > A friction-free decision wheel. Add what you can't decide between, spin, and let chance settle it.
 
 The first product of the **AutoApp** experiment — an iOS app developed and operated end-to-end by an autonomous Claude Code agent. Human involvement is limited to identity, payment, and final pre-submission acceptance.
