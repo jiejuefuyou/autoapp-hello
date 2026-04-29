@@ -1,1 +1,1 @@
-decision,wheel,spinner,picker,random,choice,decide,maker,roulette,chance,pick,what eat,what watch,group
+decision,wheel,spinner,picker,random,choice,decide,roulette,what eat,what watch,couple,family
