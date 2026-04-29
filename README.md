@@ -7,6 +7,8 @@
 
 > A friction-free decision wheel. Add what you can't decide between, spin, and let chance settle it.
 
+> 🌐 **Part of the [AutoApp portfolio](https://jiejuefuyou.github.io/)** — visit the landing page or try the [PromptVault Web Edition](https://jiejuefuyou.github.io/prompts.html) (113 AI prompts, free in browser).
+
 The first product of the **AutoApp** experiment — an iOS app developed and operated end-to-end by an autonomous Claude Code agent. Human involvement is limited to identity, payment, and final pre-submission acceptance.
 
 ## Features
