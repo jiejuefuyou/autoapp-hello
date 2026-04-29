@@ -29,6 +29,7 @@ targets:
           - "Resources/StoreKitConfiguration.storekit"
     resources:
       - path: AutoChoice/Resources/Assets.xcassets
+      - path: AutoChoice/Resources/PrivacyInfo.xcprivacy
       - path: AutoChoice/Resources/StoreKitConfiguration.storekit
         buildPhase: none
     settings:
