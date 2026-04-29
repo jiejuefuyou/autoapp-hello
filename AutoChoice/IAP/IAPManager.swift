@@ -2,6 +2,7 @@ import Foundation
 import StoreKit
 import Observation
 
+@MainActor
 @Observable
 final class IAPManager {
     static let premiumProductID = "com.jiejuefuyou.autochoice.premium"
@@ -11,10 +12,10 @@ final class IAPManager {
     var purchaseInProgress: Bool = false
     var lastError: String?
 
-    private var listenerTask: Task<Void, Never>?
+    private nonisolated(unsafe) var listenerTask: Task<Void, Never>?
 
     init() {
-        listenerTask = Task.detached { [weak self] in
+        listenerTask = Task { [weak self] in
             for await update in Transaction.updates {
                 guard case .verified(let t) = update else { continue }
                 await t.finish()
@@ -83,9 +84,6 @@ final class IAPManager {
                 entitled = true
             }
         }
-        // Re-bind to a `let` so the @MainActor closure captures an immutable
-        // value, not a mutable var (Swift 6 strict-concurrency).
-        let finalEntitled = entitled
-        await MainActor.run { self.isPremium = finalEntitled }
+        isPremium = entitled
     }
 }
