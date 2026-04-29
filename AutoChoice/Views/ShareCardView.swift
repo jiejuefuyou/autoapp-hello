@@ -38,11 +38,21 @@ struct ShareCardView: View {
 
 @MainActor
 enum ShareCardRenderer {
-    static func render(result: String, listName: String, palette: [Color]) -> Image? {
+    /// Renders the share card to a PNG in the temporary directory and returns the URL.
+    /// `URL` conforms to `Transferable`, so the result can be passed directly to `ShareLink(item:)`.
+    static func renderToTempURL(result: String, listName: String, palette: [Color]) -> URL? {
         let view = ShareCardView(result: result, listName: listName, palette: palette)
         let renderer = ImageRenderer(content: view)
         renderer.scale = 2.0
-        guard let ui = renderer.uiImage else { return nil }
-        return Image(uiImage: ui)
+        guard let uiImage = renderer.uiImage,
+              let pngData = uiImage.pngData() else { return nil }
+        let url = FileManager.default.temporaryDirectory
+            .appendingPathComponent("autochoice-\(UUID().uuidString.prefix(8)).png")
+        do {
+            try pngData.write(to: url, options: .atomic)
+            return url
+        } catch {
+            return nil
+        }
     }
 }
