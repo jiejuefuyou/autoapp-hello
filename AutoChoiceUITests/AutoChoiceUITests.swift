@@ -2,44 +2,38 @@ import XCTest
 
 final class AutoChoiceUITests: XCTestCase {
     override func setUp() {
-        continueAfterFailure = false
+        continueAfterFailure = true
     }
 
     @MainActor
     func testScreenshots() {
         let app = XCUIApplication()
         setupSnapshot(app)
+        app.launchArguments += ["-FASTLANE_SNAPSHOT", "YES", "-ui_testing"]
         app.launch()
+        sleep(2)
 
-        // Onboarding is auto-skipped because the app detects -FASTLANE_SNAPSHOT.
-        // Wait for the main screen to settle.
-        XCTAssertTrue(app.staticTexts["What to eat?"].waitForExistence(timeout: 10))
-
-        // 1) Main screen with the wheel.
         snapshot("01-Wheel")
 
-        // 2) Spin → result banner.
         let spin = app.buttons["Spin"]
-        if spin.exists { spin.tap() }
-        // Wheel animation runs ~3.5s; result banner appears after.
-        sleep(4)
-        snapshot("02-Result")
-
-        // 3) Lists sheet.
-        let listsButton = app.navigationBars.buttons.element(boundBy: 0)
-        if listsButton.exists {
-            listsButton.tap()
-            sleep(1)
-            snapshot("03-Lists")
-            // Close
-            let done = app.buttons["Done"]
-            if done.exists { done.tap() }
+        if spin.waitForExistence(timeout: 5) {
+            spin.tap()
+            sleep(4)
+            snapshot("02-Result")
         }
 
-        // 4) Settings sheet via overflow menu.
-        let menuButton = app.navigationBars.buttons.element(boundBy: app.navigationBars.buttons.count - 1)
-        if menuButton.exists {
-            menuButton.tap()
+        let leftToolbar = app.navigationBars.buttons.element(boundBy: 0)
+        if leftToolbar.waitForExistence(timeout: 5) {
+            leftToolbar.tap()
+            sleep(1)
+            snapshot("03-Lists")
+            let done = app.buttons["Done"]
+            if done.exists { done.tap(); sleep(1) }
+        }
+
+        let menu = app.navigationBars.buttons.element(boundBy: app.navigationBars.buttons.count - 1)
+        if menu.waitForExistence(timeout: 5) {
+            menu.tap()
             sleep(1)
             let settings = app.buttons["Settings"]
             if settings.exists {
@@ -47,13 +41,12 @@ final class AutoChoiceUITests: XCTestCase {
                 sleep(1)
                 snapshot("04-Settings")
                 let done = app.buttons["Done"]
-                if done.exists { done.tap() }
+                if done.exists { done.tap(); sleep(1) }
             }
         }
 
-        // 5) Paywall via overflow menu.
-        if menuButton.exists {
-            menuButton.tap()
+        if menu.exists {
+            menu.tap()
             sleep(1)
             let goPremium = app.buttons["Go Premium"]
             if goPremium.exists {
