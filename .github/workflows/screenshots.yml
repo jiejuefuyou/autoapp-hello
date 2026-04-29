@@ -13,6 +13,9 @@ concurrency:
   group: screenshots
   cancel-in-progress: false
 
+permissions:
+  contents: write   # required so the commit step can push the regenerated PNGs back to main
+
 jobs:
   shots:
     name: Capture App Store screenshots
