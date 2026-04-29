@@ -95,14 +95,8 @@ struct ContentView: View {
     private func shareButton(for resultLabel: String) -> some View {
         if iap.isPremium, let listName = store.activeList?.name {
             let palette = WheelTheme.by(id: store.selectedThemeID).palette
-            if let cardImage = ShareCardRenderer.render(result: resultLabel, listName: listName, palette: palette) {
-                ShareLink(
-                    item: cardImage,
-                    preview: SharePreview(
-                        "AutoChoice picked: \(resultLabel)",
-                        image: cardImage
-                    )
-                ) {
+            if let cardURL = ShareCardRenderer.renderToTempURL(result: resultLabel, listName: listName, palette: palette) {
+                ShareLink(item: cardURL) {
                     Image(systemName: "square.and.arrow.up").font(.title3)
                 }
                 .buttonStyle(.plain)
