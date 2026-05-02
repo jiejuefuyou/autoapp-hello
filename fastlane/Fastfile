@@ -78,7 +78,7 @@ platform :ios do
       export_options: {
         method: "app-store",
         provisioningProfiles: {
-          BUNDLE_ID => "match AppStore #{BUNDLE_ID}"
+          BUNDLE_ID => real_profile_name
         },
         signingStyle: "manual",
         teamID: ENV.fetch("TEAM_ID")
