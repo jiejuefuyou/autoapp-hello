@@ -56,12 +56,14 @@ platform :ios do
       xcodeproj:    PROJECT
     )
 
+    real_profile_name = ENV.fetch("sigh_#{BUNDLE_ID}_appstore_profile-name") { "match AppStore #{BUNDLE_ID}" }
+    UI.message("Resolved profile name from match: #{real_profile_name}")
     update_code_signing_settings(
       use_automatic_signing: false,
       path:                  PROJECT,
       team_id:               ENV.fetch("TEAM_ID"),
       bundle_identifier:     BUNDLE_ID,
-      profile_name:          "match AppStore #{BUNDLE_ID}",
+      profile_name:          real_profile_name,
       code_sign_identity:    "Apple Distribution"
     )
 
