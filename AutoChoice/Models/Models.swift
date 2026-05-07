@@ -4,6 +4,21 @@ import SwiftUI
 struct Choice: Identifiable, Codable, Hashable {
     var id: UUID = UUID()
     var label: String
+
+    init(id: UUID = UUID(), label: String) {
+        self.id = id
+        self.label = label
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, label
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id    = try c.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        self.label = try c.decode(String.self,        forKey: .label)
+    }
 }
 
 struct ChoiceList: Identifiable, Codable, Hashable {
@@ -11,6 +26,25 @@ struct ChoiceList: Identifiable, Codable, Hashable {
     var name: String
     var choices: [Choice]
     var createdAt: Date = .now
+
+    init(id: UUID = UUID(), name: String, choices: [Choice], createdAt: Date = .now) {
+        self.id = id
+        self.name = name
+        self.choices = choices
+        self.createdAt = createdAt
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, choices, createdAt
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id        = try c.decodeIfPresent(UUID.self,     forKey: .id) ?? UUID()
+        self.name      = try c.decode(String.self,            forKey: .name)
+        self.choices   = try c.decode([Choice].self,          forKey: .choices)
+        self.createdAt = try c.decodeIfPresent(Date.self,     forKey: .createdAt) ?? .now
+    }
 }
 
 struct HistoryEntry: Identifiable, Codable, Hashable {
@@ -18,6 +52,25 @@ struct HistoryEntry: Identifiable, Codable, Hashable {
     let listName: String
     let choice: String
     let timestamp: Date
+
+    init(id: UUID = UUID(), listName: String, choice: String, timestamp: Date) {
+        self.id = id
+        self.listName = listName
+        self.choice = choice
+        self.timestamp = timestamp
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, listName, choice, timestamp
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.id        = try c.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        self.listName  = try c.decode(String.self,        forKey: .listName)
+        self.choice    = try c.decode(String.self,        forKey: .choice)
+        self.timestamp = try c.decode(Date.self,          forKey: .timestamp)
+    }
 }
 
 struct WheelTheme: Identifiable, Hashable {

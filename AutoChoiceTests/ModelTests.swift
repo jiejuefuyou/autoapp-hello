@@ -10,6 +10,28 @@ final class ModelTests: XCTestCase {
         XCTAssertEqual(decoded, original)
     }
 
+    func testChoiceDecodesWithoutOptionalIDField() throws {
+        // Backward-compat guard: a JSON without `id` should still decode (the
+        // property has a default UUID). See reports/codable-migration-audit-2026-05-07.md.
+        let json = #"{"label":"Sushi"}"#.data(using: .utf8)!
+        let decoded = try JSONDecoder().decode(Choice.self, from: json)
+        XCTAssertEqual(decoded.label, "Sushi")
+    }
+
+    func testChoiceListDecodesWithoutCreatedAt() throws {
+        // v1.0.0-era JSON without createdAt should still decode and use .now default.
+        let json = #"""
+        {
+            "id":"00000000-0000-0000-0000-000000000001",
+            "name":"Lunch",
+            "choices":[]
+        }
+        """#.data(using: .utf8)!
+        let decoded = try JSONDecoder().decode(ChoiceList.self, from: json)
+        XCTAssertEqual(decoded.name, "Lunch")
+        XCTAssertEqual(decoded.choices.count, 0)
+    }
+
     func testChoiceListAddAndRemove() {
         let store = WheelStore()
         let initialCount = store.lists.count
