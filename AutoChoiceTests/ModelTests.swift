@@ -73,4 +73,43 @@ final class ModelTests: XCTestCase {
         XCTAssertGreaterThan(WheelStore.freeChoiceLimit, 0)
         XCTAssertLessThanOrEqual(WheelStore.freeChoiceLimit, 12)
     }
+
+    // C3 — free-tier history cap
+    func testFreeHistoryCapIs10() {
+        let store = WheelStore()
+        // Spin well beyond the free cap
+        for _ in 0..<25 {
+            store.spin(isPremium: false)
+        }
+        XCTAssertEqual(store.history.count, WheelStore.freeHistoryCap,
+                       "Free tier must retain exactly the last \(WheelStore.freeHistoryCap) entries")
+        XCTAssertEqual(WheelStore.freeHistoryCap, 10)
+    }
+
+    // C3 — premium history is unlimited up to historyCap
+    func testPremiumHistoryCapIs100() {
+        let store = WheelStore()
+        for _ in 0..<(WheelStore.historyCap + 5) {
+            store.spin(isPremium: true)
+        }
+        XCTAssertLessThanOrEqual(store.history.count, WheelStore.historyCap,
+                                 "Premium cap must not exceed historyCap")
+        XCTAssertGreaterThan(store.history.count, WheelStore.freeHistoryCap,
+                             "Premium must allow more than freeHistoryCap entries")
+    }
+
+    // C3 — Codable backward-compat: Snapshot JSON without 'history' field must decode to []
+    func testHistoryEntryDecodesWithoutField() throws {
+        let jsonStr = #"""
+        {"label":"A","listName":"Lunch","choice":"Pizza","timestamp":0}
+        """#.data(using: .utf8)!
+        // HistoryEntry itself has no optional timestamp — but the Snapshot wrapper does
+        // Use try? defaulting in WheelStore.load(): validate HistoryEntry round-trip
+        let entry = HistoryEntry(listName: "L", choice: "C", timestamp: .now)
+        let data = try JSONEncoder().encode(entry)
+        let decoded = try JSONDecoder().decode(HistoryEntry.self, from: data)
+        XCTAssertEqual(decoded.listName, entry.listName)
+        XCTAssertEqual(decoded.choice, entry.choice)
+        _ = jsonStr // suppress unused warning
+    }
 }

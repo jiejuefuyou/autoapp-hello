@@ -6,6 +6,7 @@ final class WheelStore {
     static let freeChoiceLimit = 6
     static let freeListLimit = 1
     static let historyCap = 100
+    static let freeHistoryCap = 10
 
     var lists: [ChoiceList] = []
     var activeListID: UUID?
@@ -92,7 +93,7 @@ final class WheelStore {
     }
 
     @discardableResult
-    func spin() -> Choice? {
+    func spin(isPremium: Bool = false) -> Choice? {
         guard let list = activeList, !list.choices.isEmpty else { return nil }
         let chosen = list.choices.randomElement()!
         guard let idx = list.choices.firstIndex(of: chosen) else { return nil }
@@ -104,7 +105,8 @@ final class WheelStore {
         currentRotation = currentRotation.truncatingRemainder(dividingBy: 360) - rounds * 360 + target
         lastResult = chosen
         history.insert(HistoryEntry(listName: list.name, choice: chosen.label, timestamp: .now), at: 0)
-        if history.count > Self.historyCap { history = Array(history.prefix(Self.historyCap)) }
+        let cap = isPremium ? Self.historyCap : Self.freeHistoryCap
+        if history.count > cap { history = Array(history.prefix(cap)) }
         save()
         return chosen
     }
@@ -126,6 +128,25 @@ final class WheelStore {
         var activeListID: UUID?
         var history: [HistoryEntry]
         var selectedThemeID: String
+
+        enum CodingKeys: String, CodingKey {
+            case lists, activeListID, history, selectedThemeID
+        }
+
+        init(lists: [ChoiceList], activeListID: UUID?, history: [HistoryEntry], selectedThemeID: String) {
+            self.lists = lists
+            self.activeListID = activeListID
+            self.history = history
+            self.selectedThemeID = selectedThemeID
+        }
+
+        init(from decoder: Decoder) throws {
+            let c = try decoder.container(keyedBy: CodingKeys.self)
+            self.lists           = try c.decode([ChoiceList].self,    forKey: .lists)
+            self.activeListID    = try c.decodeIfPresent(UUID.self,   forKey: .activeListID)
+            self.history         = (try? c.decode([HistoryEntry].self, forKey: .history)) ?? []
+            self.selectedThemeID = try c.decodeIfPresent(String.self, forKey: .selectedThemeID) ?? "classic"
+        }
     }
 
     private var saveURL: URL {
