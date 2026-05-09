@@ -81,3 +81,21 @@
 /* Share card */
 "AutoChoice picked" = "AutoChoice 選中";
 "from \"%@\"" = "來自「%@」";
+
+/* v1.0.4 — history search */
+"Search history" = "搜尋紀錄";
+"No matching spins" = "沒有相符的紀錄";
+"Try a different search term." = "換個關鍵字再試試。";
+
+/* v1.0.4 — spin sound */
+"Sound" = "音效";
+"Spin sound" = "旋轉音效";
+"Spin sound is a Premium feature" = "旋轉音效為會員專屬";
+"Classic tick" = "經典 (滴答)";
+"Chime" = "鈴聲";
+"Whoosh" = "咻";
+"Silent" = "靜音";
+
+/* v1.0.4 — CSV export */
+"Export" = "匯出";
+"Export history (CSV)" = "匯出紀錄 (CSV)";

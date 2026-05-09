@@ -81,3 +81,21 @@
 /* Share card */
 "AutoChoice picked" = "AutoChoice 选中";
 "from \"%@\"" = "来自“%@”";
+
+/* v1.0.4 — history search */
+"Search history" = "搜索历史";
+"No matching spins" = "没有匹配的记录";
+"Try a different search term." = "换个关键词试试。";
+
+/* v1.0.4 — spin sound */
+"Sound" = "音效";
+"Spin sound" = "旋转音效";
+"Spin sound is a Premium feature" = "旋转音效是会员专属";
+"Classic tick" = "经典 (滴答)";
+"Chime" = "铃声";
+"Whoosh" = "嗖";
+"Silent" = "静音";
+
+/* v1.0.4 — CSV export */
+"Export" = "导出";
+"Export history (CSV)" = "导出历史 (CSV)";

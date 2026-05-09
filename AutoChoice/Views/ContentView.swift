@@ -10,7 +10,7 @@ struct ContentView: View {
         TabView {
             WheelTab()
                 .tabItem { Label(LocalizedStringKey("Wheel"), systemImage: "circle.grid.cross.fill") }
-            HistoryTab()
+            HistoryView()
                 .tabItem { Label(LocalizedStringKey("History"), systemImage: "clock.arrow.circlepath") }
             SettingsTab()
                 .tabItem { Label(LocalizedStringKey("Settings"), systemImage: "gear") }
@@ -29,6 +29,8 @@ struct ContentView: View {
 private struct WheelTab: View {
     @Environment(WheelStore.self) private var store
     @Environment(IAPManager.self) private var iap
+
+    @AppStorage("spinSoundID") private var spinSoundID: String = SoundService.defaultID
 
     @State private var showPaywall = false
     @State private var showLists = false
@@ -152,6 +154,11 @@ private struct WheelTab: View {
             return
         }
         Haptics.medium()
+        // Premium users hear their selected spin sound; free users always
+        // get the silent default so the audio cue stays a Premium-only perk.
+        if iap.isPremium {
+            SoundService.play(id: spinSoundID)
+        }
         store.isSpinning = true
         store.spin(isPremium: iap.isPremium)
         Task {
@@ -164,118 +171,6 @@ private struct WheelTab: View {
                 ReviewService.maybeRequestReview()
             }
         }
-    }
-}
-
-// MARK: - History Tab
-
-private struct HistoryTab: View {
-    @Environment(WheelStore.self) private var store
-    @Environment(IAPManager.self) private var iap
-
-    @State private var showPaywall = false
-
-    private var visibleEntries: [HistoryEntry] {
-        iap.isPremium ? store.history : Array(store.history.prefix(WheelStore.freeHistoryCap))
-    }
-
-    private var grouped: [(Date, [HistoryEntry])] {
-        let cal = Calendar.current
-        let dict = Dictionary(grouping: visibleEntries) { entry in
-            cal.startOfDay(for: entry.timestamp)
-        }
-        return dict.keys.sorted(by: >).map { day in (day, dict[day]!) }
-    }
-
-    var body: some View {
-        NavigationStack {
-            Group {
-                if visibleEntries.isEmpty {
-                    ContentUnavailableView(
-                        LocalizedStringKey("No spins yet"),
-                        systemImage: "clock.arrow.circlepath",
-                        description: Text(LocalizedStringKey("Spin the wheel to start recording history."))
-                    )
-                } else {
-                    ScrollView {
-                        LazyVStack(alignment: .leading, spacing: 0, pinnedViews: .sectionHeaders) {
-                            ForEach(grouped, id: \.0) { day, entries in
-                                Section {
-                                    ForEach(entries) { entry in
-                                        entryRow(entry)
-                                            .padding(.horizontal)
-                                        Divider().padding(.leading)
-                                    }
-                                } header: {
-                                    sectionHeader(day)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            .navigationTitle(Text("History"))
-            .toolbar {
-                if iap.isPremium && !store.history.isEmpty {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(LocalizedStringKey("Clear"), role: .destructive) { store.clearHistory() }
-                    }
-                }
-            }
-            .safeAreaInset(edge: .bottom) {
-                if !iap.isPremium {
-                    freeUpgradeBanner
-                }
-            }
-            .sheet(isPresented: $showPaywall) { PaywallView() }
-        }
-    }
-
-    @ViewBuilder
-    private func sectionHeader(_ day: Date) -> some View {
-        Text(day, style: .date)
-            .font(.subheadline.bold())
-            .foregroundStyle(.secondary)
-            .padding(.horizontal)
-            .padding(.vertical, 6)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.regularMaterial)
-    }
-
-    @ViewBuilder
-    private func entryRow(_ entry: HistoryEntry) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(entry.choice)
-                .font(.body.bold())
-            HStack(spacing: 4) {
-                Text(entry.listName)
-                Text("·")
-                Text(entry.timestamp, style: .time)
-            }
-            .font(.caption)
-            .foregroundStyle(.secondary)
-        }
-        .padding(.vertical, 10)
-    }
-
-    private var freeUpgradeBanner: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Showing last \(WheelStore.freeHistoryCap) spins")
-                    .font(.caption.bold())
-                Text("Upgrade for unlimited history")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-            }
-            Spacer()
-            Button(LocalizedStringKey("Upgrade")) { showPaywall = true }
-                .font(.caption.bold())
-                .buttonStyle(.borderedProminent)
-                .controlSize(.small)
-        }
-        .padding(.horizontal)
-        .padding(.vertical, 10)
-        .background(.ultraThinMaterial)
     }
 }
 
@@ -310,6 +205,10 @@ private struct SettingsTab: View {
 
                 Section(LocalizedStringKey("Language")) {
                     LanguagePicker()
+                }
+
+                Section(LocalizedStringKey("Sound")) {
+                    SpinSoundPicker(showPaywall: $showPaywall)
                 }
 
                 Section(LocalizedStringKey("Premium")) {
@@ -390,6 +289,41 @@ private struct LanguagePicker: View {
             }
         }
         .pickerStyle(.menu)
+    }
+}
+
+private struct SpinSoundPicker: View {
+    @Environment(IAPManager.self) private var iap
+    @AppStorage("spinSoundID") private var spinSoundID: String = SoundService.defaultID
+    @Binding var showPaywall: Bool
+
+    var body: some View {
+        if iap.isPremium {
+            Picker(LocalizedStringKey("Spin sound"), selection: $spinSoundID) {
+                ForEach(SpinSound.allCases) { sound in
+                    Text(LocalizedStringKey(sound.displayKey)).tag(sound.rawValue)
+                }
+            }
+            .pickerStyle(.menu)
+            .onChange(of: spinSoundID) { _, new in
+                // Preview the new selection so the user hears what they picked.
+                SoundService.play(id: new)
+            }
+        } else {
+            Button {
+                showPaywall = true
+            } label: {
+                HStack {
+                    Label(LocalizedStringKey("Spin sound"), systemImage: "speaker.wave.2")
+                        .foregroundStyle(.primary)
+                    Spacer()
+                    Image(systemName: "lock.fill")
+                        .foregroundStyle(.secondary)
+                        .font(.caption)
+                }
+            }
+            .accessibilityLabel(Text(LocalizedStringKey("Spin sound is a Premium feature")))
+        }
     }
 }
 

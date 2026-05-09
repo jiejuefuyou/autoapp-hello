@@ -81,3 +81,21 @@
 /* Share card */
 "AutoChoice picked" = "AutoChoice가 골랐어요";
 "from \"%@\"" = "“%@”에서";
+
+/* v1.0.4 — history search */
+"Search history" = "기록 검색";
+"No matching spins" = "일치하는 기록이 없어요";
+"Try a different search term." = "다른 검색어로 시도해 보세요.";
+
+/* v1.0.4 — spin sound */
+"Sound" = "사운드";
+"Spin sound" = "회전 효과음";
+"Spin sound is a Premium feature" = "회전 효과음은 프리미엄 전용입니다";
+"Classic tick" = "클래식 (똑딱)";
+"Chime" = "차임";
+"Whoosh" = "휙";
+"Silent" = "무음";
+
+/* v1.0.4 — CSV export */
+"Export" = "내보내기";
+"Export history (CSV)" = "기록 내보내기 (CSV)";

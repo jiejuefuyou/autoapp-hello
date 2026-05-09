@@ -81,3 +81,21 @@
 /* Share card */
 "AutoChoice picked" = "AutoChoice wählt";
 "from \"%@\"" = "aus „%@“";
+
+/* v1.0.4 — history search */
+"Search history" = "Verlauf durchsuchen";
+"No matching spins" = "Keine Treffer";
+"Try a different search term." = "Versuch's mit einem anderen Suchbegriff.";
+
+/* v1.0.4 — spin sound */
+"Sound" = "Sound";
+"Spin sound" = "Drehton";
+"Spin sound is a Premium feature" = "Drehton ist Premium";
+"Classic tick" = "Klassisch (Ticken)";
+"Chime" = "Glockenspiel";
+"Whoosh" = "Wuusch";
+"Silent" = "Stumm";
+
+/* v1.0.4 — CSV export */
+"Export" = "Exportieren";
+"Export history (CSV)" = "Verlauf exportieren (CSV)";
