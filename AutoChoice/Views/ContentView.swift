@@ -100,7 +100,13 @@ private struct WheelTab: View {
 
     @ViewBuilder
     private func shareButton(for resultLabel: String) -> some View {
-        if iap.isPremium, let listName = store.activeList?.name {
+        // Always render the share button so reviewers (and free-tier users) can
+        // exercise the share affordance. Premium users get a high-resolution
+        // gradient share card; free users get a plain text share that links to
+        // the App Store. This satisfies App Review 2.1(a) (the button must be
+        // responsive) without giving away the Premium-only share-card asset.
+        let listName = store.activeList?.name ?? "AutoChoice"
+        if iap.isPremium {
             let palette = WheelTheme.by(id: store.selectedThemeID).palette
             if let cardURL = ShareCardRenderer.renderToTempURL(result: resultLabel, listName: listName, palette: palette) {
                 ShareLink(item: cardURL) {
@@ -109,6 +115,13 @@ private struct WheelTab: View {
                 .buttonStyle(.plain)
                 .accessibilityLabel("Share result")
             }
+        } else {
+            let shareText = "AutoChoice picked: \(resultLabel) — try it: https://apps.apple.com/app/id6765667062"
+            ShareLink(item: shareText) {
+                Image(systemName: "square.and.arrow.up").font(.title3)
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Share result")
         }
     }
 
