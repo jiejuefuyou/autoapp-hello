@@ -141,7 +141,7 @@ struct HistoryView: View {
     private var freeUpgradeBanner: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text("Showing last \(WheelStore.freeHistoryCap) spins")
+                Text(String(format: NSLocalizedString("Showing last %lld spins", comment: "Banner shown to free-tier users in History view"), WheelStore.freeHistoryCap))
                     .font(.caption.bold())
                 Text(LocalizedStringKey("Upgrade for unlimited history"))
                     .font(.caption2)

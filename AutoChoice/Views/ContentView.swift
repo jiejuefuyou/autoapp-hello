@@ -67,7 +67,7 @@ private struct WheelTab: View {
                     Button { showLists = true } label: {
                         Image(systemName: "list.bullet.rectangle")
                     }
-                    .accessibilityLabel(Text("Lists"))
+                    .accessibilityLabel(Text(LocalizedStringKey("Lists")))
                 }
                 if !iap.isPremium {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -115,7 +115,7 @@ private struct WheelTab: View {
                     Image(systemName: "square.and.arrow.up").font(.title3)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(Text("Share result"))
+                .accessibilityLabel(Text(LocalizedStringKey("Share result")))
             }
         } else {
             let shareText = String(

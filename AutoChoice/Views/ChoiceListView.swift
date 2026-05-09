@@ -25,7 +25,7 @@ struct ChoiceListView: View {
                 }
 
                 if let active = store.activeList {
-                    Section(header: Text("Choices in \"\(active.name)\"")) {
+                    Section(header: Text(String(format: NSLocalizedString("Choices in \"%@\"", comment: "Section header showing list name"), active.name))) {
                         ForEach(active.choices) { choice in
                             ChoiceEditRow(choice: choice, list: active)
                         }
@@ -46,7 +46,7 @@ struct ChoiceListView: View {
                     }
                 }
             }
-            .navigationTitle(Text("Manage"))
+            .navigationTitle(Text(LocalizedStringKey("Manage")))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(LocalizedStringKey("Done")) { dismiss() }
@@ -100,7 +100,7 @@ struct ChoiceListView: View {
 
     private var limitNote: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("Free tier limit: \(WheelStore.freeChoiceLimit) choices.")
+            Text(String(format: NSLocalizedString("Free tier limit: %lld choices.", comment: "Note shown when user hits free tier choice limit"), WheelStore.freeChoiceLimit))
                 .font(.footnote)
                 .foregroundStyle(.secondary)
             Button(LocalizedStringKey("Unlock unlimited")) { showPaywall = true }
