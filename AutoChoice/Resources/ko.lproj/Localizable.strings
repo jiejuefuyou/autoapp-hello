@@ -1,0 +1,83 @@
+/* AutoChoice — 한국어 (ko) */
+/* Tab bar */
+"Wheel" = "휠";
+"History" = "기록";
+"Settings" = "설정";
+
+/* Wheel screen */
+"AutoChoice" = "AutoChoice";
+"Spin" = "돌리기";
+"Spinning…" = "돌리는 중…";
+"Add choices to spin" = "선택지를 추가하면 돌릴 수 있어요";
+"Lists" = "목록";
+"Go Premium" = "프리미엄 가입";
+"Share result" = "결과 공유";
+"AutoChoice picked: %@ — try it: https://apps.apple.com/app/id6765667062" = "AutoChoice가 골랐어요: %@ — 사용해 보기: https://apps.apple.com/app/id6765667062";
+
+/* History screen */
+"No spins yet" = "아직 기록이 없어요";
+"Spin the wheel to start recording history." = "휠을 돌리면 기록이 저장됩니다.";
+"Showing last %lld spins" = "최근 %lld회만 표시 중";
+"Upgrade for unlimited history" = "업그레이드하면 무제한 기록";
+"Upgrade" = "업그레이드";
+"Clear" = "지우기";
+
+/* Settings screen */
+"Theme" = "테마";
+"Premium" = "프리미엄";
+"Premium unlocked" = "프리미엄 잠금 해제됨";
+"Unlock Premium" = "프리미엄 잠금 해제";
+"Restore Purchase" = "구입 복원";
+"About" = "정보";
+"Version" = "버전";
+"Build" = "빌드";
+"Privacy Policy" = "개인정보 처리방침";
+"Terms of Use" = "이용 약관";
+"No data collected. Ever." = "어떤 데이터도 수집하지 않습니다.";
+"Language" = "언어";
+"System default" = "시스템 설정 따르기";
+
+/* Choice list / management screen */
+"New list" = "새 목록";
+"Choices in \"%@\"" = "“%@”의 선택지";
+"Add choice" = "선택지 추가";
+"Add" = "추가";
+"Manage" = "관리";
+"Done" = "완료";
+"Rename list" = "목록 이름 변경";
+"Name" = "이름";
+"Cancel" = "취소";
+"Save" = "저장";
+"Rename" = "이름 변경";
+"Delete" = "삭제";
+"Free tier limit: %lld choices." = "무료 한도: 선택지 %lld개.";
+"Unlock unlimited" = "무제한 잠금 해제";
+"%lld choices" = "선택지 %lld개";
+
+/* Onboarding */
+"Stop arguing" = "더는 고민하지 마세요";
+"Type the options you can't decide between." = "결정하기 어려운 후보를 입력하세요.";
+"Spin the wheel" = "휠을 돌리기";
+"One tap. Chance picks an answer for you." = "한 번 탭으로 운명이 답을 골라줍니다.";
+"Stays on your phone" = "iPhone 안에서만 보관";
+"No account, no network, no data collection. Ever." = "계정 없음, 네트워크 없음, 데이터 수집 없음.";
+"Get started" = "시작하기";
+"Next" = "다음";
+
+/* Paywall */
+"AutoChoice Premium" = "AutoChoice 프리미엄";
+"One-time purchase. No subscription. Unlock everything forever." = "한 번 결제로 끝. 구독 없음. 모든 기능을 영원히 해제.";
+"Unlimited choices per wheel" = "휠당 무제한 선택지";
+"10+ premium themes" = "10가지 이상 프리미엄 테마";
+"Unlimited saved lists" = "무제한 목록 저장";
+"Decision history" = "결정 기록";
+"Share result cards" = "결과 카드 공유";
+"No subscription. No data collected. Ever." = "구독 없음, 데이터 수집 없음.";
+"Payment will be charged to your Apple ID. This is a one-time purchase that unlocks all premium features for the lifetime of your Apple ID." = "결제는 Apple ID로 청구됩니다. 일회성 구매이며 해당 Apple ID로 평생 모든 프리미엄 기능을 사용할 수 있습니다.";
+"Close" = "닫기";
+"Processing…" = "처리 중…";
+"Unlock for %@" = "%@에 잠금 해제";
+
+/* Share card */
+"AutoChoice picked" = "AutoChoice가 골랐어요";
+"from \"%@\"" = "“%@”에서";

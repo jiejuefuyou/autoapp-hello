@@ -16,7 +16,7 @@ struct WheelView: View {
                         Image(systemName: "plus.circle")
                             .font(.system(size: 40))
                             .foregroundStyle(.secondary)
-                        Text("Add choices to spin")
+                        Text(LocalizedStringKey("Add choices to spin"))
                             .font(.callout)
                             .foregroundStyle(.secondary)
                     }

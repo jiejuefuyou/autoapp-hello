@@ -6,12 +6,15 @@ import Observation
 @Observable
 final class IAPManager {
     // Must match the IAP product ID configured in App Store Connect.
-    // ASC record: autochoice_premium_unlock (display name: "AutoChoice Premium").
-    // Tick #145b 2026-05-09: previously "com.jiejuefuyou.autochoice.premium",
-    // which does not match the ASC record — Product.products(for:) returned
-    // empty so the paywall showed nothing and Apple Review rejected for 2.1(b)
-    // ("we cannot locate the In-App Purchases").
-    static let premiumProductID = "autochoice_premium_unlock"
+    // ASC API V1 GET /v1/apps/6765667062/inAppPurchasesV2 confirms:
+    //   productID = com.jiejuefuyou.autochoice.premium  (id 6766868984)
+    // The Apple Review email mentioning "autochoice_premium_unlock" was a
+    // reviewer paraphrase; the only real product ID on the AutoChoice app
+    // is com.jiejuefuyou.autochoice.premium.
+    // Real 2.1(b) root cause was IAP item not attached to the review
+    // submission via reviewSubmissionItems (handled separately via CDP
+    // 2-stage flow per memory state_apple_review_iap_completeness_rejection).
+    static let premiumProductID = "com.jiejuefuyou.autochoice.premium"
 
     var isPremium: Bool = false
     var products: [Product] = []

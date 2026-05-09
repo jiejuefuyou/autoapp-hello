@@ -1,0 +1,83 @@
+/* AutoChoice — 简体中文 (zh-Hans) */
+/* Tab bar */
+"Wheel" = "转盘";
+"History" = "历史";
+"Settings" = "设置";
+
+/* Wheel screen */
+"AutoChoice" = "AutoChoice";
+"Spin" = "转一下";
+"Spinning…" = "正在旋转…";
+"Add choices to spin" = "添加选项后即可旋转";
+"Lists" = "列表";
+"Go Premium" = "升级会员";
+"Share result" = "分享结果";
+"AutoChoice picked: %@ — try it: https://apps.apple.com/app/id6765667062" = "AutoChoice 帮我选了:%@ — 试试看: https://apps.apple.com/app/id6765667062";
+
+/* History screen */
+"No spins yet" = "还没有抽取记录";
+"Spin the wheel to start recording history." = "转一下转盘,即可记录历史。";
+"Showing last %lld spins" = "仅显示最近 %lld 次";
+"Upgrade for unlimited history" = "升级会员可解锁无限历史";
+"Upgrade" = "升级";
+"Clear" = "清空";
+
+/* Settings screen */
+"Theme" = "主题";
+"Premium" = "会员";
+"Premium unlocked" = "已解锁会员";
+"Unlock Premium" = "解锁会员";
+"Restore Purchase" = "恢复购买";
+"About" = "关于";
+"Version" = "版本";
+"Build" = "构建版本";
+"Privacy Policy" = "隐私政策";
+"Terms of Use" = "使用条款";
+"No data collected. Ever." = "永不收集任何数据。";
+"Language" = "语言";
+"System default" = "跟随系统";
+
+/* Choice list / management screen */
+"New list" = "新建列表";
+"Choices in \"%@\"" = "“%@”的选项";
+"Add choice" = "添加选项";
+"Add" = "添加";
+"Manage" = "管理";
+"Done" = "完成";
+"Rename list" = "重命名列表";
+"Name" = "名称";
+"Cancel" = "取消";
+"Save" = "保存";
+"Rename" = "重命名";
+"Delete" = "删除";
+"Free tier limit: %lld choices." = "免费版上限:%lld 个选项。";
+"Unlock unlimited" = "解锁无限";
+"%lld choices" = "%lld 个选项";
+
+/* Onboarding */
+"Stop arguing" = "别再纠结";
+"Type the options you can't decide between." = "把难以抉择的选项一一输入。";
+"Spin the wheel" = "转一下转盘";
+"One tap. Chance picks an answer for you." = "一键搞定,让运气替你选答案。";
+"Stays on your phone" = "数据只留在你的 iPhone";
+"No account, no network, no data collection. Ever." = "无需账号、无需联网、永不采集数据。";
+"Get started" = "开始使用";
+"Next" = "下一步";
+
+/* Paywall */
+"AutoChoice Premium" = "AutoChoice 会员";
+"One-time purchase. No subscription. Unlock everything forever." = "一次买断,无需订阅,永久解锁全部功能。";
+"Unlimited choices per wheel" = "单个转盘选项无限";
+"10+ premium themes" = "10 余款会员专属主题";
+"Unlimited saved lists" = "无限保存列表";
+"Decision history" = "决策历史";
+"Share result cards" = "分享精美结果卡片";
+"No subscription. No data collected. Ever." = "无订阅、永不采集数据。";
+"Payment will be charged to your Apple ID. This is a one-time purchase that unlocks all premium features for the lifetime of your Apple ID." = "费用将通过您的 Apple ID 进行扣款。本次为一次性买断,您的 Apple ID 将永久享有全部会员功能。";
+"Close" = "关闭";
+"Processing…" = "处理中…";
+"Unlock for %@" = "%@ 解锁";
+
+/* Share card */
+"AutoChoice picked" = "AutoChoice 选中";
+"from \"%@\"" = "来自“%@”";

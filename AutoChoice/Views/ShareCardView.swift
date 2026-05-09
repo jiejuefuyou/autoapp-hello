@@ -11,7 +11,7 @@ struct ShareCardView: View {
                 .ignoresSafeArea()
             VStack(spacing: 16) {
                 Spacer()
-                Text("AutoChoice picked")
+                Text(LocalizedStringKey("AutoChoice picked"))
                     .font(.headline)
                     .foregroundStyle(.white.opacity(0.85))
                 Text(result)
@@ -21,7 +21,7 @@ struct ShareCardView: View {
                     .padding(.horizontal, 24)
                     .lineLimit(3)
                     .minimumScaleFactor(0.4)
-                Text("from \"\(listName)\"")
+                Text(String(format: String(localized: "from \"%@\""), listName))
                     .font(.callout)
                     .foregroundStyle(.white.opacity(0.85))
                 Spacer()

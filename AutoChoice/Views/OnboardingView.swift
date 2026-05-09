@@ -6,9 +6,9 @@ struct OnboardingView: View {
     @State private var page = 0
 
     private let pages: [Page] = [
-        Page(icon: "list.bullet.rectangle", title: "Stop arguing", subtitle: "Type the options you can't decide between."),
-        Page(icon: "dial.high", title: "Spin the wheel", subtitle: "One tap. Chance picks an answer for you."),
-        Page(icon: "lock.shield", title: "Stays on your phone", subtitle: "No account, no network, no data collection. Ever.")
+        Page(icon: "list.bullet.rectangle", titleKey: "Stop arguing", subtitleKey: "Type the options you can't decide between."),
+        Page(icon: "dial.high", titleKey: "Spin the wheel", subtitleKey: "One tap. Chance picks an answer for you."),
+        Page(icon: "lock.shield", titleKey: "Stays on your phone", subtitleKey: "No account, no network, no data collection. Ever.")
     ]
 
     var body: some View {
@@ -21,7 +21,7 @@ struct OnboardingView: View {
             .tabViewStyle(.page)
             .indexViewStyle(.page(backgroundDisplayMode: .always))
 
-            Button(page == pages.count - 1 ? "Get started" : "Next") {
+            Button(page == pages.count - 1 ? LocalizedStringKey("Get started") : LocalizedStringKey("Next")) {
                 if page == pages.count - 1 {
                     hasSeenOnboarding = true
                     dismiss()
@@ -44,10 +44,10 @@ struct OnboardingView: View {
             Image(systemName: p.icon)
                 .font(.system(size: 88))
                 .foregroundStyle(.tint)
-            Text(p.title)
+            Text(p.titleKey)
                 .font(.largeTitle.bold())
                 .multilineTextAlignment(.center)
-            Text(p.subtitle)
+            Text(p.subtitleKey)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
@@ -57,7 +57,7 @@ struct OnboardingView: View {
 
     struct Page {
         let icon: String
-        let title: String
-        let subtitle: String
+        let titleKey: LocalizedStringKey
+        let subtitleKey: LocalizedStringKey
     }
 }

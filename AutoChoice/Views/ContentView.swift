@@ -9,11 +9,11 @@ struct ContentView: View {
     var body: some View {
         TabView {
             WheelTab()
-                .tabItem { Label("Wheel", systemImage: "circle.grid.cross.fill") }
+                .tabItem { Label(LocalizedStringKey("Wheel"), systemImage: "circle.grid.cross.fill") }
             HistoryTab()
-                .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
+                .tabItem { Label(LocalizedStringKey("History"), systemImage: "clock.arrow.circlepath") }
             SettingsTab()
-                .tabItem { Label("Settings", systemImage: "gear") }
+                .tabItem { Label(LocalizedStringKey("Settings"), systemImage: "gear") }
         }
         .fullScreenCover(isPresented: Binding(
             get: { !hasSeenOnboarding },
@@ -58,19 +58,19 @@ private struct WheelTab: View {
                     .padding(.bottom, 8)
             }
             .padding(.top)
-            .navigationTitle(store.activeList?.name ?? "AutoChoice")
+            .navigationTitle(store.activeList?.name ?? String(localized: "AutoChoice"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button { showLists = true } label: {
                         Image(systemName: "list.bullet.rectangle")
                     }
-                    .accessibilityLabel("Lists")
+                    .accessibilityLabel(Text("Lists"))
                 }
                 if !iap.isPremium {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button { showPaywall = true } label: {
-                            Label("Go Premium", systemImage: "sparkles")
+                            Label(LocalizedStringKey("Go Premium"), systemImage: "sparkles")
                         }
                     }
                 }
@@ -105,7 +105,7 @@ private struct WheelTab: View {
         // gradient share card; free users get a plain text share that links to
         // the App Store. This satisfies App Review 2.1(a) (the button must be
         // responsive) without giving away the Premium-only share-card asset.
-        let listName = store.activeList?.name ?? "AutoChoice"
+        let listName = store.activeList?.name ?? String(localized: "AutoChoice")
         if iap.isPremium {
             let palette = WheelTheme.by(id: store.selectedThemeID).palette
             if let cardURL = ShareCardRenderer.renderToTempURL(result: resultLabel, listName: listName, palette: palette) {
@@ -113,21 +113,24 @@ private struct WheelTab: View {
                     Image(systemName: "square.and.arrow.up").font(.title3)
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Share result")
+                .accessibilityLabel(Text("Share result"))
             }
         } else {
-            let shareText = "AutoChoice picked: \(resultLabel) — try it: https://apps.apple.com/app/id6765667062"
+            let shareText = String(
+                format: String(localized: "AutoChoice picked: %@ — try it: https://apps.apple.com/app/id6765667062"),
+                resultLabel
+            )
             ShareLink(item: shareText) {
                 Image(systemName: "square.and.arrow.up").font(.title3)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("Share result")
+            .accessibilityLabel(Text("Share result"))
         }
     }
 
     private var spinButton: some View {
         Button(action: handleSpin) {
-            Text(store.isSpinning ? "Spinning…" : "Spin")
+            Text(store.isSpinning ? LocalizedStringKey("Spinning…") : LocalizedStringKey("Spin"))
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
@@ -189,9 +192,9 @@ private struct HistoryTab: View {
             Group {
                 if visibleEntries.isEmpty {
                     ContentUnavailableView(
-                        "No spins yet",
+                        LocalizedStringKey("No spins yet"),
                         systemImage: "clock.arrow.circlepath",
-                        description: Text("Spin the wheel to start recording history.")
+                        description: Text(LocalizedStringKey("Spin the wheel to start recording history."))
                     )
                 } else {
                     ScrollView {
@@ -211,11 +214,11 @@ private struct HistoryTab: View {
                     }
                 }
             }
-            .navigationTitle("History")
+            .navigationTitle(Text("History"))
             .toolbar {
                 if iap.isPremium && !store.history.isEmpty {
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button("Clear", role: .destructive) { store.clearHistory() }
+                        Button(LocalizedStringKey("Clear"), role: .destructive) { store.clearHistory() }
                     }
                 }
             }
@@ -265,7 +268,7 @@ private struct HistoryTab: View {
                     .foregroundStyle(.secondary)
             }
             Spacer()
-            Button("Upgrade") { showPaywall = true }
+            Button(LocalizedStringKey("Upgrade")) { showPaywall = true }
                 .font(.caption.bold())
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)
@@ -281,13 +284,14 @@ private struct HistoryTab: View {
 private struct SettingsTab: View {
     @Environment(WheelStore.self) private var store
     @Environment(IAPManager.self) private var iap
+    @Environment(LocalizationManager.self) private var l10n
 
     @State private var showPaywall = false
 
     var body: some View {
         NavigationStack {
             List {
-                Section("Theme") {
+                Section(LocalizedStringKey("Theme")) {
                     let cols = [GridItem(.adaptive(minimum: 88), spacing: 12)]
                     LazyVGrid(columns: cols, spacing: 12) {
                         ForEach(WheelTheme.all) { theme in
@@ -304,29 +308,33 @@ private struct SettingsTab: View {
                     .padding(.vertical, 4)
                 }
 
-                Section("Premium") {
+                Section(LocalizedStringKey("Language")) {
+                    LanguagePicker()
+                }
+
+                Section(LocalizedStringKey("Premium")) {
                     if iap.isPremium {
-                        Label("Premium unlocked", systemImage: "checkmark.seal.fill")
+                        Label(LocalizedStringKey("Premium unlocked"), systemImage: "checkmark.seal.fill")
                             .foregroundStyle(.green)
                     } else {
                         Button { showPaywall = true } label: {
-                            Label("Unlock Premium", systemImage: "sparkles")
+                            Label(LocalizedStringKey("Unlock Premium"), systemImage: "sparkles")
                         }
                     }
-                    Button("Restore Purchase") { Task { await iap.restore() } }
+                    Button(LocalizedStringKey("Restore Purchase")) { Task { await iap.restore() } }
                 }
 
-                Section("About") {
-                    LabeledContent("Version", value: appVersion)
-                    LabeledContent("Build",   value: buildNumber)
-                    Link("Privacy Policy", destination: URL(string: "https://github.com/jiejuefuyou/autoapp-hello/blob/main/PRIVACY.md")!)
-                    Link("Terms of Use", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
-                    Label("No data collected. Ever.", systemImage: "lock.shield.fill")
+                Section(LocalizedStringKey("About")) {
+                    LabeledContent(LocalizedStringKey("Version"), value: appVersion)
+                    LabeledContent(LocalizedStringKey("Build"),   value: buildNumber)
+                    Link(LocalizedStringKey("Privacy Policy"), destination: URL(string: "https://github.com/jiejuefuyou/autoapp-hello/blob/main/PRIVACY.md")!)
+                    Link(LocalizedStringKey("Terms of Use"), destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                    Label(LocalizedStringKey("No data collected. Ever."), systemImage: "lock.shield.fill")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(Text("Settings"))
             .sheet(isPresented: $showPaywall) { PaywallView() }
         }
     }
@@ -368,8 +376,26 @@ private struct ThemeTile: View {
     }
 }
 
+private struct LanguagePicker: View {
+    @Environment(LocalizationManager.self) private var l10n
+
+    var body: some View {
+        Picker(LocalizedStringKey("Language"), selection: Binding(
+            get: { l10n.override },
+            set: { l10n.setOverride($0) }
+        )) {
+            Text(LocalizedStringKey("System default")).tag("")
+            ForEach(LocalizationManager.supportedLanguages, id: \.self) { code in
+                Text(LocalizationManager.displayName(for: code)).tag(code)
+            }
+        }
+        .pickerStyle(.menu)
+    }
+}
+
 #Preview {
     ContentView()
         .environment(WheelStore())
         .environment(IAPManager())
+        .environment(LocalizationManager.shared)
 }

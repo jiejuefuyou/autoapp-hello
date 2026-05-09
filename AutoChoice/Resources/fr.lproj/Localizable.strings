@@ -1,0 +1,83 @@
+/* AutoChoice — Français (fr) */
+/* Tab bar */
+"Wheel" = "Roue";
+"History" = "Historique";
+"Settings" = "Réglages";
+
+/* Wheel screen */
+"AutoChoice" = "AutoChoice";
+"Spin" = "Lancer";
+"Spinning…" = "En rotation…";
+"Add choices to spin" = "Ajoutez des choix pour lancer la roue";
+"Lists" = "Listes";
+"Go Premium" = "Passer Premium";
+"Share result" = "Partager le résultat";
+"AutoChoice picked: %@ — try it: https://apps.apple.com/app/id6765667062" = "AutoChoice a choisi : %@ — à essayer : https://apps.apple.com/app/id6765667062";
+
+/* History screen */
+"No spins yet" = "Aucun tirage pour l'instant";
+"Spin the wheel to start recording history." = "Lancez la roue pour démarrer l'historique.";
+"Showing last %lld spins" = "%lld derniers tirages affichés";
+"Upgrade for unlimited history" = "Passez Premium pour un historique illimité";
+"Upgrade" = "Passer Premium";
+"Clear" = "Effacer";
+
+/* Settings screen */
+"Theme" = "Thème";
+"Premium" = "Premium";
+"Premium unlocked" = "Premium activé";
+"Unlock Premium" = "Activer Premium";
+"Restore Purchase" = "Restaurer l'achat";
+"About" = "À propos";
+"Version" = "Version";
+"Build" = "Build";
+"Privacy Policy" = "Politique de confidentialité";
+"Terms of Use" = "Conditions d'utilisation";
+"No data collected. Ever." = "Aucune donnée collectée. Jamais.";
+"Language" = "Langue";
+"System default" = "Réglage du système";
+
+/* Choice list / management screen */
+"New list" = "Nouvelle liste";
+"Choices in \"%@\"" = "Choix de « %@ »";
+"Add choice" = "Ajouter un choix";
+"Add" = "Ajouter";
+"Manage" = "Gérer";
+"Done" = "OK";
+"Rename list" = "Renommer la liste";
+"Name" = "Nom";
+"Cancel" = "Annuler";
+"Save" = "Enregistrer";
+"Rename" = "Renommer";
+"Delete" = "Supprimer";
+"Free tier limit: %lld choices." = "Limite gratuite : %lld choix.";
+"Unlock unlimited" = "Débloquer l'illimité";
+"%lld choices" = "%lld choix";
+
+/* Onboarding */
+"Stop arguing" = "Fini les hésitations";
+"Type the options you can't decide between." = "Saisissez les options entre lesquelles vous hésitez.";
+"Spin the wheel" = "Lancez la roue";
+"One tap. Chance picks an answer for you." = "Une touche. Le hasard décide pour vous.";
+"Stays on your phone" = "Tout reste sur votre iPhone";
+"No account, no network, no data collection. Ever." = "Sans compte, sans réseau, sans collecte de données.";
+"Get started" = "Commencer";
+"Next" = "Suivant";
+
+/* Paywall */
+"AutoChoice Premium" = "AutoChoice Premium";
+"One-time purchase. No subscription. Unlock everything forever." = "Achat unique. Sans abonnement. Tout débloqué à vie.";
+"Unlimited choices per wheel" = "Choix illimités par roue";
+"10+ premium themes" = "Plus de 10 thèmes Premium";
+"Unlimited saved lists" = "Listes enregistrées illimitées";
+"Decision history" = "Historique des décisions";
+"Share result cards" = "Cartes de résultat à partager";
+"No subscription. No data collected. Ever." = "Sans abonnement. Aucune donnée collectée.";
+"Payment will be charged to your Apple ID. This is a one-time purchase that unlocks all premium features for the lifetime of your Apple ID." = "Le paiement sera débité de votre identifiant Apple. Cet achat unique débloque toutes les fonctionnalités Premium à vie pour votre identifiant Apple.";
+"Close" = "Fermer";
+"Processing…" = "Traitement…";
+"Unlock for %@" = "Débloquer pour %@";
+
+/* Share card */
+"AutoChoice picked" = "AutoChoice a choisi";
+"from \"%@\"" = "depuis « %@ »";

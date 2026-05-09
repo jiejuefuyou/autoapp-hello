@@ -1,0 +1,83 @@
+/* AutoChoice — 日本語 (ja) */
+/* Tab bar */
+"Wheel" = "ホイール";
+"History" = "履歴";
+"Settings" = "設定";
+
+/* Wheel screen */
+"AutoChoice" = "AutoChoice";
+"Spin" = "回す";
+"Spinning…" = "回転中…";
+"Add choices to spin" = "選択肢を追加してください";
+"Lists" = "リスト";
+"Go Premium" = "プレミアム";
+"Share result" = "結果を共有";
+"AutoChoice picked: %@ — try it: https://apps.apple.com/app/id6765667062" = "AutoChoice が選んだ結果:%@ — 試してみる: https://apps.apple.com/app/id6765667062";
+
+/* History screen */
+"No spins yet" = "まだ履歴はありません";
+"Spin the wheel to start recording history." = "ホイールを回すと履歴が記録されます。";
+"Showing last %lld spins" = "直近 %lld 件を表示中";
+"Upgrade for unlimited history" = "アップグレードで履歴無制限";
+"Upgrade" = "アップグレード";
+"Clear" = "消去";
+
+/* Settings screen */
+"Theme" = "テーマ";
+"Premium" = "プレミアム";
+"Premium unlocked" = "プレミアム解放済み";
+"Unlock Premium" = "プレミアムを解除";
+"Restore Purchase" = "購入を復元";
+"About" = "このアプリについて";
+"Version" = "バージョン";
+"Build" = "ビルド";
+"Privacy Policy" = "プライバシーポリシー";
+"Terms of Use" = "利用規約";
+"No data collected. Ever." = "データ収集は一切ありません。";
+"Language" = "言語";
+"System default" = "システム設定に従う";
+
+/* Choice list / management screen */
+"New list" = "新規リスト";
+"Choices in \"%@\"" = "「%@」の選択肢";
+"Add choice" = "選択肢を追加";
+"Add" = "追加";
+"Manage" = "管理";
+"Done" = "完了";
+"Rename list" = "リスト名を変更";
+"Name" = "名前";
+"Cancel" = "キャンセル";
+"Save" = "保存";
+"Rename" = "名前を変更";
+"Delete" = "削除";
+"Free tier limit: %lld choices." = "無料版の上限:選択肢 %lld 個まで。";
+"Unlock unlimited" = "無制限に解除";
+"%lld choices" = "選択肢 %lld 個";
+
+/* Onboarding */
+"Stop arguing" = "もう迷わない";
+"Type the options you can't decide between." = "迷っている候補を入力してください。";
+"Spin the wheel" = "ホイールを回す";
+"One tap. Chance picks an answer for you." = "ワンタップで運命が答えを選びます。";
+"Stays on your phone" = "あなたの iPhone の中だけで完結";
+"No account, no network, no data collection. Ever." = "アカウント不要、通信なし、データ収集なし。";
+"Get started" = "はじめる";
+"Next" = "次へ";
+
+/* Paywall */
+"AutoChoice Premium" = "AutoChoice プレミアム";
+"One-time purchase. No subscription. Unlock everything forever." = "買い切り型。サブスクなし。すべての機能を永久に解放します。";
+"Unlimited choices per wheel" = "1 つのホイールに選択肢を無制限に追加";
+"10+ premium themes" = "10 種類以上のプレミアムテーマ";
+"Unlimited saved lists" = "リスト保存数も無制限";
+"Decision history" = "決定履歴";
+"Share result cards" = "結果カードを共有";
+"No subscription. No data collected. Ever." = "サブスクなし、データ収集なし。";
+"Payment will be charged to your Apple ID. This is a one-time purchase that unlocks all premium features for the lifetime of your Apple ID." = "代金はお客様の Apple ID に請求されます。買い切りのため、お客様の Apple ID で永続的にすべてのプレミアム機能をご利用いただけます。";
+"Close" = "閉じる";
+"Processing…" = "処理中…";
+"Unlock for %@" = "%@ で解除";
+
+/* Share card */
+"AutoChoice picked" = "AutoChoice が選びました";
+"from \"%@\"" = "「%@」より";

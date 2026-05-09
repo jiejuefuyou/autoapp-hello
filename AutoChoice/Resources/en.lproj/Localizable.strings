@@ -1,0 +1,83 @@
+/* AutoChoice — English (en) */
+/* Tab bar */
+"Wheel" = "Wheel";
+"History" = "History";
+"Settings" = "Settings";
+
+/* Wheel screen */
+"AutoChoice" = "AutoChoice";
+"Spin" = "Spin";
+"Spinning…" = "Spinning…";
+"Add choices to spin" = "Add choices to spin";
+"Lists" = "Lists";
+"Go Premium" = "Go Premium";
+"Share result" = "Share result";
+"AutoChoice picked: %@ — try it: https://apps.apple.com/app/id6765667062" = "AutoChoice picked: %@ — try it: https://apps.apple.com/app/id6765667062";
+
+/* History screen */
+"No spins yet" = "No spins yet";
+"Spin the wheel to start recording history." = "Spin the wheel to start recording history.";
+"Showing last %lld spins" = "Showing last %lld spins";
+"Upgrade for unlimited history" = "Upgrade for unlimited history";
+"Upgrade" = "Upgrade";
+"Clear" = "Clear";
+
+/* Settings screen */
+"Theme" = "Theme";
+"Premium" = "Premium";
+"Premium unlocked" = "Premium unlocked";
+"Unlock Premium" = "Unlock Premium";
+"Restore Purchase" = "Restore Purchase";
+"About" = "About";
+"Version" = "Version";
+"Build" = "Build";
+"Privacy Policy" = "Privacy Policy";
+"Terms of Use" = "Terms of Use";
+"No data collected. Ever." = "No data collected. Ever.";
+"Language" = "Language";
+"System default" = "System default";
+
+/* Choice list / management screen */
+"New list" = "New list";
+"Choices in \"%@\"" = "Choices in \"%@\"";
+"Add choice" = "Add choice";
+"Add" = "Add";
+"Manage" = "Manage";
+"Done" = "Done";
+"Rename list" = "Rename list";
+"Name" = "Name";
+"Cancel" = "Cancel";
+"Save" = "Save";
+"Rename" = "Rename";
+"Delete" = "Delete";
+"Free tier limit: %lld choices." = "Free tier limit: %lld choices.";
+"Unlock unlimited" = "Unlock unlimited";
+"%lld choices" = "%lld choices";
+
+/* Onboarding */
+"Stop arguing" = "Stop arguing";
+"Type the options you can't decide between." = "Type the options you can't decide between.";
+"Spin the wheel" = "Spin the wheel";
+"One tap. Chance picks an answer for you." = "One tap. Chance picks an answer for you.";
+"Stays on your phone" = "Stays on your phone";
+"No account, no network, no data collection. Ever." = "No account, no network, no data collection. Ever.";
+"Get started" = "Get started";
+"Next" = "Next";
+
+/* Paywall */
+"AutoChoice Premium" = "AutoChoice Premium";
+"One-time purchase. No subscription. Unlock everything forever." = "One-time purchase. No subscription. Unlock everything forever.";
+"Unlimited choices per wheel" = "Unlimited choices per wheel";
+"10+ premium themes" = "10+ premium themes";
+"Unlimited saved lists" = "Unlimited saved lists";
+"Decision history" = "Decision history";
+"Share result cards" = "Share result cards";
+"No subscription. No data collected. Ever." = "No subscription. No data collected. Ever.";
+"Payment will be charged to your Apple ID. This is a one-time purchase that unlocks all premium features for the lifetime of your Apple ID." = "Payment will be charged to your Apple ID. This is a one-time purchase that unlocks all premium features for the lifetime of your Apple ID.";
+"Close" = "Close";
+"Processing…" = "Processing…";
+"Unlock for %@" = "Unlock for %@";
+
+/* Share card */
+"AutoChoice picked" = "AutoChoice picked";
+"from \"%@\"" = "from \"%@\"";

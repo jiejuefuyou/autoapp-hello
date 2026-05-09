@@ -26,9 +26,9 @@ struct HistoryView: View {
             Group {
                 if visibleEntries.isEmpty {
                     ContentUnavailableView(
-                        "No spins yet",
+                        LocalizedStringKey("No spins yet"),
                         systemImage: "clock.arrow.circlepath",
-                        description: Text("Spin the wheel to start recording history.")
+                        description: Text(LocalizedStringKey("Spin the wheel to start recording history."))
                     )
                 } else {
                     ScrollView {
@@ -48,17 +48,17 @@ struct HistoryView: View {
                     }
                 }
             }
-            .navigationTitle("History")
+            .navigationTitle(Text("History"))
             .toolbar {
                 if !store.history.isEmpty {
                     ToolbarItem(placement: .topBarLeading) {
                         if iap.isPremium {
-                            Button("Clear", role: .destructive) { store.clearHistory() }
+                            Button(LocalizedStringKey("Clear"), role: .destructive) { store.clearHistory() }
                         }
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") { dismiss() }
+                    Button(LocalizedStringKey("Done")) { dismiss() }
                 }
             }
             .safeAreaInset(edge: .bottom) {
@@ -109,7 +109,7 @@ struct HistoryView: View {
                     .foregroundStyle(.secondary)
             }
             Spacer()
-            Button("Upgrade") { showPaywall = true }
+            Button(LocalizedStringKey("Upgrade")) { showPaywall = true }
                 .font(.caption.bold())
                 .buttonStyle(.borderedProminent)
                 .controlSize(.small)

@@ -14,10 +14,10 @@ struct PaywallView: View {
                         .foregroundStyle(.tint)
                         .padding(.top, 24)
 
-                    Text("AutoChoice Premium")
+                    Text(LocalizedStringKey("AutoChoice Premium"))
                         .font(.largeTitle.bold())
 
-                    Text("One-time purchase. No subscription. Unlock everything forever.")
+                    Text(LocalizedStringKey("One-time purchase. No subscription. Unlock everything forever."))
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.secondary)
                         .padding(.horizontal)
@@ -37,7 +37,7 @@ struct PaywallView: View {
                     purchaseButton
                         .padding(.horizontal)
 
-                    Button("Restore Purchase") {
+                    Button(LocalizedStringKey("Restore Purchase")) {
                         Task { await iap.restore() }
                     }
                     .font(.footnote)
@@ -47,10 +47,10 @@ struct PaywallView: View {
                     }
 
                     VStack(spacing: 4) {
-                        Label("No subscription. No data collected. Ever.", systemImage: "lock.shield.fill")
+                        Label(LocalizedStringKey("No subscription. No data collected. Ever."), systemImage: "lock.shield.fill")
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(.secondary)
-                        Text(legalese)
+                        Text(LocalizedStringKey("Payment will be charged to your Apple ID. This is a one-time purchase that unlocks all premium features for the lifetime of your Apple ID."))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                             .multilineTextAlignment(.center)
@@ -61,7 +61,7 @@ struct PaywallView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Close") { dismiss() }
+                    Button(LocalizedStringKey("Close")) { dismiss() }
                 }
             }
             .onChange(of: iap.isPremium) { _, newValue in
@@ -74,7 +74,7 @@ struct PaywallView: View {
     @ViewBuilder
     private var purchaseButton: some View {
         if iap.isPremium {
-            Label("Premium unlocked", systemImage: "checkmark.seal.fill")
+            Label(LocalizedStringKey("Premium unlocked"), systemImage: "checkmark.seal.fill")
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -88,8 +88,11 @@ struct PaywallView: View {
                     if iap.purchaseInProgress {
                         ProgressView().tint(.white)
                     }
-                    Text(iap.purchaseInProgress ? "Processing…" : "Unlock for \(product.displayPrice)")
-                        .font(.headline)
+                    if iap.purchaseInProgress {
+                        Text(LocalizedStringKey("Processing…")).font(.headline)
+                    } else {
+                        Text("Unlock for \(product.displayPrice)").font(.headline)
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -104,16 +107,12 @@ struct PaywallView: View {
         }
     }
 
-    private func feature(_ icon: String, _ text: String) -> some View {
+    private func feature(_ icon: String, _ key: LocalizedStringKey) -> some View {
         HStack(spacing: 12) {
             Image(systemName: icon).foregroundStyle(.tint).frame(width: 28)
-            Text(text)
+            Text(key)
             Spacer()
         }
-    }
-
-    private var legalese: String {
-        "Payment will be charged to your Apple ID. This is a one-time purchase that unlocks all premium features for the lifetime of your Apple ID."
     }
 }
 

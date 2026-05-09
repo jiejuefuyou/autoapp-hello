@@ -13,19 +13,19 @@ struct ChoiceListView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Lists") {
+                Section(LocalizedStringKey("Lists")) {
                     ForEach(store.lists) { list in
                         listRow(list)
                     }
                     Button {
                         addList()
                     } label: {
-                        Label("New list", systemImage: "plus.circle")
+                        Label(LocalizedStringKey("New list"), systemImage: "plus.circle")
                     }
                 }
 
                 if let active = store.activeList {
-                    Section("Choices in \"\(active.name)\"") {
+                    Section(header: Text("Choices in \"\(active.name)\"")) {
                         ForEach(active.choices) { choice in
                             ChoiceEditRow(choice: choice, list: active)
                         }
@@ -34,10 +34,10 @@ struct ChoiceListView: View {
                                 .forEach { store.removeChoice($0, from: active) }
                         }
                         HStack {
-                            TextField("Add choice", text: $newChoice)
+                            TextField(LocalizedStringKey("Add choice"), text: $newChoice)
                                 .submitLabel(.done)
                                 .onSubmit(addChoice)
-                            Button("Add", action: addChoice)
+                            Button(LocalizedStringKey("Add"), action: addChoice)
                                 .disabled(newChoice.trimmingCharacters(in: .whitespaces).isEmpty)
                         }
                         if active.choices.count >= WheelStore.freeChoiceLimit && !iap.isPremium {
@@ -46,20 +46,20 @@ struct ChoiceListView: View {
                     }
                 }
             }
-            .navigationTitle("Manage")
+            .navigationTitle(Text("Manage"))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") { dismiss() }
+                    Button(LocalizedStringKey("Done")) { dismiss() }
                 }
             }
             .sheet(isPresented: $showPaywall) { PaywallView() }
-            .alert("Rename list", isPresented: Binding(
+            .alert(LocalizedStringKey("Rename list"), isPresented: Binding(
                 get: { renamingList != nil },
                 set: { if !$0 { renamingList = nil } }
             )) {
-                TextField("Name", text: $newListName)
-                Button("Cancel", role: .cancel) { renamingList = nil }
-                Button("Save") {
+                TextField(LocalizedStringKey("Name"), text: $newListName)
+                Button(LocalizedStringKey("Cancel"), role: .cancel) { renamingList = nil }
+                Button(LocalizedStringKey("Save")) {
                     if let l = renamingList { store.renameList(l, to: newListName) }
                     renamingList = nil
                 }
@@ -83,12 +83,12 @@ struct ChoiceListView: View {
             .buttonStyle(.plain)
             Spacer()
             Menu {
-                Button("Rename") {
+                Button(LocalizedStringKey("Rename")) {
                     renamingList = list
                     newListName = list.name
                 }
                 if store.lists.count > 1 {
-                    Button("Delete", role: .destructive) {
+                    Button(LocalizedStringKey("Delete"), role: .destructive) {
                         store.deleteList(list)
                     }
                 }
@@ -103,7 +103,7 @@ struct ChoiceListView: View {
             Text("Free tier limit: \(WheelStore.freeChoiceLimit) choices.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
-            Button("Unlock unlimited") { showPaywall = true }
+            Button(LocalizedStringKey("Unlock unlimited")) { showPaywall = true }
                 .font(.footnote.weight(.semibold))
         }
     }
@@ -125,6 +125,7 @@ struct ChoiceListView: View {
             showPaywall = true
             return
         }
+        // Use a numeric default that doesn't need translation; users can rename.
         let next = "List \(store.lists.count + 1)"
         _ = store.addList(name: next)
     }
@@ -143,7 +144,7 @@ private struct ChoiceEditRow: View {
     }
 
     var body: some View {
-        TextField("", text: $editing, onCommit: commit)
+        TextField(LocalizedStringKey(""), text: $editing, onCommit: commit)
             .submitLabel(.done)
             .onChange(of: editing) { _, _ in }
             .onDisappear(perform: commit)
