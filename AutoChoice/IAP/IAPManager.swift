@@ -16,10 +16,26 @@ final class IAPManager {
     // 2-stage flow per memory state_apple_review_iap_completeness_rejection).
     static let premiumProductID = "com.jiejuefuyou.autochoice.premium"
 
+    /// Hard ceiling for product lookup. Apple Review (round-3, 2.1(b),
+    /// iPad Air 11" M3 / iPadOS 26.4.2 sandbox) reported the paywall
+    /// "loading indefinitely". Sandbox StoreKit can stall silently;
+    /// any wait beyond this and we surface a graceful empty state
+    /// instead of an indefinite spinner.
+    static let productsLoadTimeout: Duration = .seconds(5)
+
+    enum LoadingState: Equatable {
+        case loading
+        case loaded
+        case empty   // products query returned, but list empty (e.g. sandbox region with no IAP record)
+        case timedOut
+        case failed
+    }
+
     var isPremium: Bool = false
     var products: [Product] = []
     var purchaseInProgress: Bool = false
     var lastError: String?
+    var loadingState: LoadingState = .loading
 
     private nonisolated(unsafe) var listenerTask: Task<Void, Never>?
 
@@ -43,11 +59,39 @@ final class IAPManager {
     }
 
     func loadProducts() async {
+        loadingState = .loading
+        lastError = nil
         do {
-            products = try await Product.products(for: [Self.premiumProductID])
+            let fetched = try await withThrowingTaskGroup(of: [Product].self) { group in
+                group.addTask {
+                    try await Product.products(for: [Self.premiumProductID])
+                }
+                group.addTask {
+                    try await Task.sleep(for: Self.productsLoadTimeout)
+                    throw IAPLoadError.timedOut
+                }
+                guard let first = try await group.next() else {
+                    throw IAPLoadError.timedOut
+                }
+                group.cancelAll()
+                return first
+            }
+            products = fetched
+            loadingState = fetched.isEmpty ? .empty : .loaded
+        } catch is CancellationError {
+            // Caller-initiated cancel (e.g. view dismissed). Treat as empty
+            // rather than failed so we don't surface a misleading error.
+            loadingState = .empty
+        } catch IAPLoadError.timedOut {
+            loadingState = .timedOut
         } catch {
             lastError = error.localizedDescription
+            loadingState = .failed
         }
+    }
+
+    private enum IAPLoadError: Error {
+        case timedOut
     }
 
     func purchase() async {

@@ -99,3 +99,9 @@
 /* v1.0.4 — CSV export */
 "Export" = "Exportieren";
 "Export history (CSV)" = "Verlauf exportieren (CSV)";
+
+/* v1.0.5 — paywall loading fallback (Apple round-3 2.1(b) fix) */
+"Loading products…" = "Produkte werden geladen…";
+"Products are temporarily unavailable. You can continue using AutoChoice for free, or try again later." = "Produkte sind vorübergehend nicht verfügbar. Du kannst AutoChoice weiterhin kostenlos nutzen oder es später erneut versuchen.";
+"Try again" = "Erneut versuchen";
+"Continue without subscription" = "Ohne Abo fortfahren";

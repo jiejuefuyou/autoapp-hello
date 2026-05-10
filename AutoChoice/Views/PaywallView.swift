@@ -101,9 +101,53 @@ struct PaywallView: View {
             }
             .disabled(iap.purchaseInProgress)
         } else {
-            ProgressView()
-                .frame(maxWidth: .infinity)
-                .padding()
+            // Apple round-3 2.1(b) fix: never let the spinner show
+            // indefinitely. After IAPManager.productsLoadTimeout the
+            // state transitions to .empty / .timedOut / .failed and
+            // we surface a graceful, user-actionable fallback.
+            unavailableFallback
+        }
+    }
+
+    @ViewBuilder
+    private var unavailableFallback: some View {
+        switch iap.loadingState {
+        case .loading:
+            HStack(spacing: 12) {
+                ProgressView()
+                Text(LocalizedStringKey("Loading products…"))
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+        case .loaded, .empty, .timedOut, .failed:
+            VStack(spacing: 12) {
+                Text(LocalizedStringKey("Products are temporarily unavailable. You can continue using AutoChoice for free, or try again later."))
+                    .font(.footnote)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
+                Button {
+                    Task { await iap.loadProducts() }
+                } label: {
+                    Label(LocalizedStringKey("Try again"), systemImage: "arrow.clockwise")
+                        .font(.subheadline.weight(.semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(.tint.opacity(0.15), in: RoundedRectangle(cornerRadius: 12))
+                }
+                Button {
+                    dismiss()
+                } label: {
+                    Text(LocalizedStringKey("Continue without subscription"))
+                        .font(.subheadline.weight(.semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 12))
+                        .foregroundStyle(.white)
+                }
+            }
+            .frame(maxWidth: .infinity)
         }
     }
 

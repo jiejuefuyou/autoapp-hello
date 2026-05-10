@@ -99,3 +99,9 @@
 /* v1.0.4 — CSV export */
 "Export" = "내보내기";
 "Export history (CSV)" = "기록 내보내기 (CSV)";
+
+/* v1.0.5 — paywall loading fallback (Apple round-3 2.1(b) fix) */
+"Loading products…" = "상품을 불러오는 중…";
+"Products are temporarily unavailable. You can continue using AutoChoice for free, or try again later." = "상품을 일시적으로 불러올 수 없습니다. 무료 버전으로도 AutoChoice를 계속 사용하실 수 있어요. 잠시 후 다시 시도해 주세요.";
+"Try again" = "다시 시도";
+"Continue without subscription" = "구입하지 않고 계속하기";

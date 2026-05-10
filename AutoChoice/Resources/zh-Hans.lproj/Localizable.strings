@@ -99,3 +99,9 @@
 /* v1.0.4 — CSV export */
 "Export" = "导出";
 "Export history (CSV)" = "导出历史 (CSV)";
+
+/* v1.0.5 — paywall loading fallback (Apple round-3 2.1(b) fix) */
+"Loading products…" = "正在加载商品…";
+"Products are temporarily unavailable. You can continue using AutoChoice for free, or try again later." = "暂时无法获取商品信息。你可以继续免费使用 AutoChoice,稍后再试。";
+"Try again" = "重试";
+"Continue without subscription" = "不购买,继续使用";
