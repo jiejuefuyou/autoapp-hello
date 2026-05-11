@@ -105,3 +105,13 @@
 "Products are temporarily unavailable. You can continue using AutoChoice for free, or try again later." = "商品を一時的に取得できません。無料版のままでも AutoChoice をお使いいただけます。後ほど再度お試しください。";
 "Try again" = "もう一度試す";
 "Continue without subscription" = "購入せずに続ける";
+
+/* v1.0.6 — purchase result surface (Apple round-4 2.1(b) fix) */
+"OK" = "OK";
+"Purchase failed" = "購入に失敗しました";
+"Purchase canceled." = "購入をキャンセルしました。";
+"Purchase pending" = "購入処理中";
+"Purchase pending. We'll complete it shortly." = "購入処理中です。まもなく完了します。";
+"Product unavailable. Please try again later." = "商品をご利用いただけません。しばらくしてからもう一度お試しください。";
+"Purchase verification failed. Please contact support." = "購入の確認に失敗しました。サポートまでお問い合わせください。";
+"Unknown purchase result. Please try again." = "購入処理の結果が不明です。もう一度お試しください。";

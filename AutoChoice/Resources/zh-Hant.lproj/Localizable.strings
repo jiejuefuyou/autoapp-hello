@@ -105,3 +105,13 @@
 "Products are temporarily unavailable. You can continue using AutoChoice for free, or try again later." = "暫時無法取得產品資訊。你可以繼續免費使用 AutoChoice,稍後再試。";
 "Try again" = "重試";
 "Continue without subscription" = "不購買,繼續使用";
+
+/* v1.0.6 — purchase result surface (Apple round-4 2.1(b) fix) */
+"OK" = "好";
+"Purchase failed" = "購買失敗";
+"Purchase canceled." = "已取消購買。";
+"Purchase pending" = "購買待處理";
+"Purchase pending. We'll complete it shortly." = "購買待處理,稍後將自動完成。";
+"Product unavailable. Please try again later." = "產品暫時無法使用,請稍後再試。";
+"Purchase verification failed. Please contact support." = "購買驗證失敗,請聯絡技術支援。";
+"Unknown purchase result. Please try again." = "購買結果未知,請再試一次。";

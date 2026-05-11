@@ -105,3 +105,13 @@
 "Products are temporarily unavailable. You can continue using AutoChoice for free, or try again later." = "Products are temporarily unavailable. You can continue using AutoChoice for free, or try again later.";
 "Try again" = "Try again";
 "Continue without subscription" = "Continue without subscription";
+
+/* v1.0.6 — purchase result surface (Apple round-4 2.1(b) fix) */
+"OK" = "OK";
+"Purchase failed" = "Purchase failed";
+"Purchase canceled." = "Purchase canceled.";
+"Purchase pending" = "Purchase pending";
+"Purchase pending. We'll complete it shortly." = "Purchase pending. We'll complete it shortly.";
+"Product unavailable. Please try again later." = "Product unavailable. Please try again later.";
+"Purchase verification failed. Please contact support." = "Purchase verification failed. Please contact support.";
+"Unknown purchase result. Please try again." = "Unknown purchase result. Please try again.";
