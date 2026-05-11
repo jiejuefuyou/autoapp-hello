@@ -99,10 +99,19 @@ final class WheelStore {
         guard let idx = list.choices.firstIndex(of: chosen) else { return nil }
         let segment = 360.0 / Double(list.choices.count)
         // The wheel renders index 0 starting at the top. Pointer is fixed at the top.
-        // To land segment idx under the pointer, rotate so the segment center aligns at -90° (top).
+        // To land segment idx center under the pointer, final rotation must satisfy:
+        //   finalRotation ≡ -(idx * segment + segment / 2)  (mod 360)
+        // Round-5 reject (2.1a, 2026-05-11): the previous formula
+        //   currentRotation.truncatingRemainder(360) - rounds * 360 + target
+        // does NOT preserve modular equivalence — Swift's truncatingRemainder for negative
+        // numbers leaves a negative residue, so after subsequent spins the cumulative
+        // rotation drifts and the segment under the pointer no longer matches `chosen`.
+        // Fix: anchor the new rotation to a multiple-of-360 baseline derived from the
+        // current rotation (via floor division), then add the deterministic target.
         let target = -(Double(idx) * segment + segment / 2)
         let rounds = Double.random(in: 5...8)
-        currentRotation = currentRotation.truncatingRemainder(dividingBy: 360) - rounds * 360 + target
+        let currentLap = (currentRotation / 360).rounded(.down)
+        currentRotation = (currentLap - rounds) * 360 + target
         lastResult = chosen
         history.insert(HistoryEntry(listName: list.name, choice: chosen.label, timestamp: .now), at: 0)
         let cap = isPremium ? Self.historyCap : Self.freeHistoryCap

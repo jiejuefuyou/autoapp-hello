@@ -12,7 +12,24 @@ struct OnboardingView: View {
     ]
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
+            // Top-right Skip — per feedback_app_ux_standards P0:
+            // always enabled, ≥ 44pt hit, immediate dismiss + persist.
+            HStack {
+                Spacer()
+                Button(LocalizedStringKey("Skip")) {
+                    completeOnboarding()
+                }
+                .font(.callout.weight(.semibold))
+                .foregroundStyle(.secondary)
+                .padding(.vertical, 12)
+                .padding(.horizontal, 20)
+                .contentShape(Rectangle())
+                .accessibilityLabel(Text(LocalizedStringKey("Skip onboarding")))
+            }
+            .padding(.top, 4)
+            .padding(.trailing, 8)
+
             TabView(selection: $page) {
                 ForEach(Array(pages.enumerated()), id: \.offset) { idx, p in
                     pageView(p).tag(idx)
@@ -23,19 +40,23 @@ struct OnboardingView: View {
 
             Button(page == pages.count - 1 ? LocalizedStringKey("Get started") : LocalizedStringKey("Next")) {
                 if page == pages.count - 1 {
-                    hasSeenOnboarding = true
-                    dismiss()
+                    completeOnboarding()
                 } else {
                     withAnimation { page += 1 }
                 }
             }
             .font(.headline)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, minHeight: 50)
             .padding()
             .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 16))
             .foregroundStyle(.white)
             .padding()
         }
+    }
+
+    private func completeOnboarding() {
+        hasSeenOnboarding = true
+        dismiss()
     }
 
     private func pageView(_ p: Page) -> some View {
