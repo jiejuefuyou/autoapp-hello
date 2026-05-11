@@ -121,9 +121,21 @@ final class ModelTests: XCTestCase {
     // Fix: floor-divide anchor — (currentLap - rounds) * 360 + target.
     func testSpinRotationLandsAtTargetModulo360() {
         let store = WheelStore()
-        // Seed list has 6 known choices; segment = 60°
-        guard let list = store.activeList, list.choices.count == 6 else {
-            XCTFail("WheelStore.seed() must produce 6 choices for this test")
+        // Override the active list with a deterministic 6-choice list so the
+        // test is isolated from any state persisted by earlier tests (the
+        // shared autochoice_state.json could otherwise leave us with a
+        // 1-choice or 2-choice list from testChoiceListAddAndRemove).
+        let fixedList = ChoiceList(
+            name: "Wheel math fixture",
+            choices: [
+                Choice(label: "A"), Choice(label: "B"), Choice(label: "C"),
+                Choice(label: "D"), Choice(label: "E"), Choice(label: "F"),
+            ]
+        )
+        store.lists.append(fixedList)
+        store.setActive(fixedList)
+        guard let list = store.activeList, list.choices.count >= 2 else {
+            XCTFail("Active list must have >= 2 choices for the wheel test")
             return
         }
         let segment = 360.0 / Double(list.choices.count)
