@@ -22,8 +22,9 @@ struct OnboardingView: View {
                 }
                 .font(.callout.weight(.semibold))
                 .foregroundStyle(.secondary)
-                .padding(.vertical, 12)
+                .padding(.vertical, 14)
                 .padding(.horizontal, 20)
+                .frame(minWidth: 60, minHeight: 44)
                 .contentShape(Rectangle())
                 .accessibilityLabel(Text(LocalizedStringKey("Skip onboarding")))
             }
