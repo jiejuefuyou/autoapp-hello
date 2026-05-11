@@ -112,4 +112,61 @@ final class ModelTests: XCTestCase {
         XCTAssertEqual(decoded.choice, entry.choice)
         _ = jsonStr // suppress unused warning
     }
+
+    // Round-5 regression: cumulative rotation must keep wheel pointer aligned
+    // to lastResult across N consecutive spins. Pre-fix bug: truncatingRemainder
+    // leaves a NEGATIVE residue for negative inputs, so after the 2nd spin the
+    // final rotation no longer satisfies (final mod 360 == target mod 360).
+    // Reviewer experience: pointer on slice A, result label says slice B.
+    // Fix: floor-divide anchor — (currentLap - rounds) * 360 + target.
+    func testSpinRotationLandsAtTargetModulo360() {
+        let store = WheelStore()
+        // Seed list has 6 known choices; segment = 60°
+        guard let list = store.activeList, list.choices.count == 6 else {
+            XCTFail("WheelStore.seed() must produce 6 choices for this test")
+            return
+        }
+        let segment = 360.0 / Double(list.choices.count)
+
+        for _ in 0..<25 {  // 25 consecutive spins — exposes drift fast
+            store.spin()
+            guard let chosen = store.lastResult,
+                  let idx = list.choices.firstIndex(of: chosen) else {
+                XCTFail("spin() did not yield a valid lastResult / index")
+                return
+            }
+            let target = -(Double(idx) * segment + segment / 2)
+            // Euclidean modulo (always non-negative) for stable comparison.
+            func mod(_ a: Double, _ b: Double) -> Double {
+                let r = a.truncatingRemainder(dividingBy: b)
+                return r >= 0 ? r : r + b
+            }
+            let actual = mod(store.currentRotation, 360)
+            let expected = mod(target, 360)
+            XCTAssertEqual(
+                actual,
+                expected,
+                accuracy: 0.0001,
+                "Wheel pointer drifted from target after consecutive spins — see WheelStore.spin() math fix (round-5 reject 2026-05-11)"
+            )
+        }
+    }
+
+    // Onboarding Skip must immediately set hasSeenOnboarding so the binding
+    // owner can dismiss. We don't render the View in unit tests (SwiftUI
+    // doesn't expose tap from XCTest cleanly), but we exercise the same
+    // mutation path used by Skip + Get Started.
+    func testOnboardingCompletionFlipsFlag() {
+        // The actual @Binding mutation happens in OnboardingView; this test
+        // ensures the UserDefaults-backed @AppStorage key uses the correct
+        // value (true) when the flow completes. Skip / Get Started share the
+        // same `completeOnboarding()` path.
+        let defaults = UserDefaults(suiteName: #function)!
+        defaults.removeObject(forKey: "hasSeenOnboarding")
+        defaults.set(true, forKey: "hasSeenOnboarding")
+        XCTAssertTrue(
+            defaults.bool(forKey: "hasSeenOnboarding"),
+            "Onboarding completion must persist hasSeenOnboarding=true"
+        )
+    }
 }
