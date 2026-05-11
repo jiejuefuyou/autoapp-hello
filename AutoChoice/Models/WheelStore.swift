@@ -108,10 +108,14 @@ final class WheelStore {
         // rotation drifts and the segment under the pointer no longer matches `chosen`.
         // Fix: anchor the new rotation to a multiple-of-360 baseline derived from the
         // current rotation (via floor division), then add the deterministic target.
+        // Note: `rounds` must be an Int (whole turns) so that
+        //   (currentLap - rounds) * 360 + target
+        // is exactly an integer multiple of 360 plus target — fractional rounds would
+        // leave a sub-360° residue and reintroduce the drift the fix is meant to remove.
         let target = -(Double(idx) * segment + segment / 2)
-        let rounds = Double.random(in: 5...8)
+        let rounds = Int.random(in: 5...8)
         let currentLap = (currentRotation / 360).rounded(.down)
-        currentRotation = (currentLap - rounds) * 360 + target
+        currentRotation = (currentLap - Double(rounds)) * 360 + target
         lastResult = chosen
         history.insert(HistoryEntry(listName: list.name, choice: chosen.label, timestamp: .now), at: 0)
         let cap = isPremium ? Self.historyCap : Self.freeHistoryCap
