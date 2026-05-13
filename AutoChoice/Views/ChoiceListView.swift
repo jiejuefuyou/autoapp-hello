@@ -26,6 +26,12 @@ struct ChoiceListView: View {
 
                 if let active = store.activeList {
                     Section(header: Text(String(format: NSLocalizedString("Choices in \"%@\"", comment: "Section header showing list name"), active.name))) {
+                        if active.choices.isEmpty {
+                            Text(LocalizedStringKey("Empty list. Tap + to add choices."))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .accessibilityLabel(Text(LocalizedStringKey("Empty list. Tap + to add choices.")))
+                        }
                         ForEach(active.choices) { choice in
                             ChoiceEditRow(choice: choice, list: active)
                         }
@@ -143,7 +149,7 @@ private struct ChoiceEditRow: View {
     }
 
     var body: some View {
-        TextField(LocalizedStringKey(""), text: $editing, onCommit: commit)
+        TextField(LocalizedStringKey("Choice label"), text: $editing, onCommit: commit)
             .submitLabel(.done)
             .onChange(of: editing) { _, _ in }
             .onDisappear(perform: commit)

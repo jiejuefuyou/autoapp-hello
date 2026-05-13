@@ -48,6 +48,7 @@ struct PaywallView: View {
                         Task { await iap.restore() }
                     }
                     .font(.footnote)
+                    .accessibilityHint(Text(LocalizedStringKey("Restores a previous purchase")))
 
                     VStack(spacing: 4) {
                         Label(LocalizedStringKey("No subscription. No data collected. Ever."), systemImage: "lock.shield.fill")
@@ -164,6 +165,11 @@ struct PaywallView: View {
                     .foregroundStyle(.white)
                 }
                 .disabled(iap.purchaseInProgress)
+                .accessibilityLabel(Text(
+                    iap.purchaseInProgress
+                        ? String(localized: "Processing…")
+                        : String(format: String(localized: "Purchase AutoChoice Premium for %@"), product.displayPrice)
+                ))
             }
         } else {
             // Apple round-3 2.1(b) fix: never let the spinner show

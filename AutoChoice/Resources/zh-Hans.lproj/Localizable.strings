@@ -140,3 +140,19 @@
 "Theme.Berry" = "莓果";
 "Theme.Midnight" = "午夜";
 "Theme.Earth" = "大地";
+
+/* v1.0.8 — a11y + empty-list hint + share card + text-field placeholder */
+"Wheel with %lld choices" = "%lld 个选项的转盘";
+"Empty list. Tap + to add choices." = "空列表。点击 + 添加选项。";
+"autochoice on App Store" = "App Store 上的 AutoChoice";
+"Choice label" = "选项标签";
+"Result: %@" = "结果：%@";
+"Spinning" = "旋转中";
+"Ready" = "准备好了";
+"Spin the wheel" = "旋转转盘";
+"Add choices first" = "请先添加选项";
+"%@ theme" = "%@ 主题";
+"%@ theme, selected" = "%@ 主题（已选）";
+"Purchase AutoChoice Premium for %@" = "以 %@ 购买 AutoChoice 高级版";
+"Restores a previous purchase" = "恢复之前的购买";
+"Page %lld of %lld: %@" = "第 %lld 页，共 %lld 页：%@";

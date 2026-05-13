@@ -33,7 +33,12 @@ struct OnboardingView: View {
 
             TabView(selection: $page) {
                 ForEach(Array(pages.enumerated()), id: \.offset) { idx, p in
-                    pageView(p).tag(idx)
+                    pageView(p)
+                        .tag(idx)
+                        .accessibilityLabel(Text(
+                            String(format: String(localized: "Page %lld of %lld: %@"),
+                                   Int64(idx + 1), Int64(pages.count), String(localized: p.titleKey))
+                        ))
                 }
             }
             .tabViewStyle(.page)

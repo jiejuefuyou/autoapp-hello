@@ -140,3 +140,19 @@
 "Theme.Berry" = "베리";
 "Theme.Midnight" = "미드나이트";
 "Theme.Earth" = "어스";
+
+/* v1.0.8 — a11y + empty-list hint + share card + text-field placeholder */
+"Wheel with %lld choices" = "%lld개 선택지의 휠";
+"Empty list. Tap + to add choices." = "빈 목록입니다. +를 눌러 선택지를 추가하세요.";
+"autochoice on App Store" = "App Store의 AutoChoice";
+"Choice label" = "선택지 라벨";
+"Result: %@" = "결과: %@";
+"Spinning" = "회전 중";
+"Ready" = "준비됨";
+"Spin the wheel" = "휠 돌리기";
+"Add choices first" = "선택지를 먼저 추가하세요";
+"%@ theme" = "%@ 테마";
+"%@ theme, selected" = "%@ 테마 (선택됨)";
+"Purchase AutoChoice Premium for %@" = "%@에 AutoChoice 프리미엄 구매";
+"Restores a previous purchase" = "이전 구매를 복원합니다";
+"Page %lld of %lld: %@" = "%lld/%lld 페이지: %@";

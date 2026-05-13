@@ -4,6 +4,10 @@ struct WheelView: View {
     let choices: [Choice]
     let rotation: Double
     let palette: [Color]
+    /// Set from parent to reflect current spin state for a11y value.
+    var isSpinning: Bool = false
+    /// Set from parent to reflect last spin result for a11y value.
+    var lastResultLabel: String? = nil
 
     var body: some View {
         GeometryReader { geo in
@@ -30,6 +34,14 @@ struct WheelView: View {
             .frame(width: size, height: size)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(
+            String(format: String(localized: "Wheel with %lld choices"), Int64(choices.count))
+        ))
+        .accessibilityValue(isSpinning
+            ? Text(LocalizedStringKey("Spinning"))
+            : (lastResultLabel.map { Text($0) } ?? Text(LocalizedStringKey("Ready")))
+        )
     }
 
     @ViewBuilder

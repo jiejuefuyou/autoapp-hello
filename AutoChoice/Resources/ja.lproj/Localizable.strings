@@ -140,3 +140,19 @@
 "Theme.Berry" = "ベリー";
 "Theme.Midnight" = "ミッドナイト";
 "Theme.Earth" = "アース";
+
+/* v1.0.8 — a11y + empty-list hint + share card + text-field placeholder */
+"Wheel with %lld choices" = "%lld 個の選択肢のホイール";
+"Empty list. Tap + to add choices." = "空のリスト。+ をタップして選択肢を追加。";
+"autochoice on App Store" = "App Store で AutoChoice";
+"Choice label" = "選択肢のラベル";
+"Result: %@" = "結果: %@";
+"Spinning" = "回転中";
+"Ready" = "準備完了";
+"Spin the wheel" = "ホイールを回す";
+"Add choices first" = "先に選択肢を追加してください";
+"%@ theme" = "%@ テーマ";
+"%@ theme, selected" = "%@ テーマ（選択中）";
+"Purchase AutoChoice Premium for %@" = "AutoChoice プレミアムを %@ で購入";
+"Restores a previous purchase" = "以前の購入を復元します";
+"Page %lld of %lld: %@" = "%lld ページ中 %lld ページ: %@";

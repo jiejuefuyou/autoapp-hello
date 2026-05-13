@@ -140,3 +140,19 @@
 "Theme.Berry" = "Berry";
 "Theme.Midnight" = "Midnight";
 "Theme.Earth" = "Earth";
+
+/* v1.0.8 — a11y + empty-list hint + share card + text-field placeholder */
+"Wheel with %lld choices" = "Wheel with %lld choices";
+"Empty list. Tap + to add choices." = "Empty list. Tap + to add choices.";
+"autochoice on App Store" = "AutoChoice on the App Store";
+"Choice label" = "Choice label";
+"Result: %@" = "Result: %@";
+"Spinning" = "Spinning";
+"Ready" = "Ready";
+"Spin the wheel" = "Spin the wheel";
+"Add choices first" = "Add choices first";
+"%@ theme" = "%@ theme";
+"%@ theme, selected" = "%@ theme, selected";
+"Purchase AutoChoice Premium for %@" = "Purchase AutoChoice Premium for %@";
+"Restores a previous purchase" = "Restores a previous purchase";
+"Page %lld of %lld: %@" = "Page %lld of %lld: %@";

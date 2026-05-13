@@ -25,7 +25,7 @@ struct ShareCardView: View {
                     .font(.callout)
                     .foregroundStyle(.white.opacity(0.85))
                 Spacer()
-                Text("autochoice.app")
+                Text(LocalizedStringKey("autochoice on App Store"))
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.white.opacity(0.7))
                     .padding(.bottom, 12)

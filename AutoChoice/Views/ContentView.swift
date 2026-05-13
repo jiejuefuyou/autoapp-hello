@@ -1,4 +1,5 @@
 import SwiftUI
+import AudioToolbox
 
 struct ContentView: View {
     @Environment(WheelStore.self) private var store
@@ -35,6 +36,7 @@ private struct WheelTab: View {
     @State private var showPaywall = false
     @State private var showLists = false
     @State private var resultBump = 0
+    @State private var tickScheduler: SpinTickScheduler?
 
     var body: some View {
         NavigationStack {
@@ -46,7 +48,9 @@ private struct WheelTab: View {
                 WheelView(
                     choices: store.activeList?.choices ?? [],
                     rotation: store.currentRotation,
-                    palette: WheelTheme.by(id: store.selectedThemeID).palette
+                    palette: WheelTheme.by(id: store.selectedThemeID).palette,
+                    isSpinning: store.isSpinning,
+                    lastResultLabel: store.lastResult?.label
                 )
                 .frame(maxWidth: 360)
                 .aspectRatio(1, contentMode: .fit)
@@ -95,6 +99,9 @@ private struct WheelTab: View {
             .background(.ultraThinMaterial, in: Capsule())
             .id(resultBump)
             .transition(.scale.combined(with: .opacity))
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.isStaticText)
+            .accessibilityLabel(Text(String(format: String(localized: "Result: %@"), result.label)))
         } else {
             Color.clear.frame(height: 56)
         }
@@ -126,7 +133,7 @@ private struct WheelTab: View {
                 Image(systemName: "square.and.arrow.up").font(.title3)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel(Text("Share result"))
+            .accessibilityLabel(Text(LocalizedStringKey("Share result")))
         }
     }
 
@@ -141,6 +148,8 @@ private struct WheelTab: View {
         }
         .disabled(store.isSpinning || (store.activeList?.choices.isEmpty ?? true))
         .buttonStyle(ScaleButtonStyle())
+        .accessibilityLabel(Text(LocalizedStringKey(store.isSpinning ? "Spinning…" : "Spin the wheel")))
+        .accessibilityHint(Text(LocalizedStringKey((store.activeList?.choices.isEmpty ?? true) ? "Add choices first" : "")))
     }
 
     private var spinButtonBackground: Color {
@@ -162,15 +171,32 @@ private struct WheelTab: View {
         }
         store.isSpinning = true
         store.spin(isPremium: iap.isPremium)
-        Task {
-            try? await Task.sleep(for: .seconds(3.5))
-            await MainActor.run {
-                store.isSpinning = false
-                resultBump += 1
+        // WheelStore is @Observable (class), safe to capture directly.
+        let capturedStore = store
+        // Use a local @State holder so the scheduler survives the 3.5 s animation.
+        // onComplete runs on main actor (CADisplayLink + @MainActor class).
+        // resultBump State mutation is posted back via DispatchQueue.main so the
+        // @State setter runs on the next SwiftUI update cycle.
+        let sched = SpinTickScheduler(
+            onTick: {
+                AudioServicesPlaySystemSound(1057)  // Tink
+                UISelectionFeedbackGenerator().selectionChanged()
+            },
+            onComplete: {
+                capturedStore.isSpinning = false
                 Haptics.success()
                 ReviewService.recordSuccess()
                 ReviewService.maybeRequestReview()
             }
+        )
+        tickScheduler = sched
+        sched.start()
+        // resultBump drives the result-banner id; update it slightly after
+        // onComplete so SwiftUI sees the isSpinning → false change first.
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(3.55))
+            resultBump += 1
+            tickScheduler = nil
         }
     }
 }
@@ -273,6 +299,12 @@ private struct ThemeTile: View {
                 .font(.caption2)
                 .lineLimit(1)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(isSelected
+            ? String(format: String(localized: "%@ theme, selected"), String(localized: theme.displayNameKey))
+            : String(format: String(localized: "%@ theme"), String(localized: theme.displayNameKey))
+        ))
+        .accessibilityAddTraits(isSelected ? [.isSelected, .isButton] : .isButton)
     }
 }
 
