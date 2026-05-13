@@ -117,3 +117,26 @@
 "Unknown purchase result. Please try again." = "購入処理の結果が不明です。もう一度お試しください。";
 "Skip" = "スキップ";
 "Skip onboarding" = "オンボーディングをスキップ";
+
+/* v1.0.7 — i18n seed + theme names */
+"What to eat?" = "何を食べる?";
+"Pizza" = "ピザ";
+"Sushi" = "寿司";
+"Burger" = "ハンバーガー";
+"Salad" = "サラダ";
+"Pasta" = "パスタ";
+"Tacos" = "タコス";
+"My list" = "マイリスト";
+"List %lld" = "リスト %lld";
+"Theme.Classic" = "クラシック";
+"Theme.Pastel" = "パステル";
+"Theme.Ocean" = "オーシャン";
+"Theme.Sunset" = "サンセット";
+"Theme.Neon" = "ネオン";
+"Theme.Forest" = "フォレスト";
+"Theme.Candy" = "キャンディ";
+"Theme.Mono" = "モノクロ";
+"Theme.Retro" = "レトロ";
+"Theme.Berry" = "ベリー";
+"Theme.Midnight" = "ミッドナイト";
+"Theme.Earth" = "アース";

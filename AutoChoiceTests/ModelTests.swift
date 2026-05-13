@@ -74,16 +74,16 @@ final class ModelTests: XCTestCase {
         XCTAssertLessThanOrEqual(WheelStore.freeChoiceLimit, 12)
     }
 
-    // C3 — free-tier history cap
-    func testFreeHistoryCapIs10() {
+    // C3 — free-tier history cap (updated to 25 in v1.0.7 freemium redesign)
+    func testFreeHistoryCapIs25() {
         let store = WheelStore()
         // Spin well beyond the free cap
-        for _ in 0..<25 {
+        for _ in 0..<40 {
             store.spin(isPremium: false)
         }
         XCTAssertEqual(store.history.count, WheelStore.freeHistoryCap,
                        "Free tier must retain exactly the last \(WheelStore.freeHistoryCap) entries")
-        XCTAssertEqual(WheelStore.freeHistoryCap, 10)
+        XCTAssertEqual(WheelStore.freeHistoryCap, 25)
     }
 
     // C3 — premium history is unlimited up to historyCap

@@ -140,6 +140,7 @@ private struct WheelTab: View {
                 .foregroundStyle(.white)
         }
         .disabled(store.isSpinning || (store.activeList?.choices.isEmpty ?? true))
+        .buttonStyle(ScaleButtonStyle())
     }
 
     private var spinButtonBackground: Color {
@@ -268,7 +269,7 @@ private struct ThemeTile: View {
                         .background(.black.opacity(0.55), in: Circle())
                 }
             }
-            Text(theme.displayName)
+            Text(theme.displayNameKey)
                 .font(.caption2)
                 .lineLimit(1)
         }

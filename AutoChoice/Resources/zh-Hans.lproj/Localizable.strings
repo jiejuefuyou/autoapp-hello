@@ -117,3 +117,26 @@
 "Unknown purchase result. Please try again." = "购买结果未知,请重试。";
 "Skip" = "跳过";
 "Skip onboarding" = "跳过引导";
+
+/* v1.0.7 — i18n seed + theme names */
+"What to eat?" = "今天吃什么?";
+"Pizza" = "披萨";
+"Sushi" = "寿司";
+"Burger" = "汉堡";
+"Salad" = "沙拉";
+"Pasta" = "意面";
+"Tacos" = "玉米卷";
+"My list" = "我的清单";
+"List %lld" = "列表 %lld";
+"Theme.Classic" = "经典";
+"Theme.Pastel" = "粉彩";
+"Theme.Ocean" = "深海";
+"Theme.Sunset" = "落日";
+"Theme.Neon" = "霓虹";
+"Theme.Forest" = "森林";
+"Theme.Candy" = "糖果";
+"Theme.Mono" = "单色";
+"Theme.Retro" = "复古";
+"Theme.Berry" = "莓果";
+"Theme.Midnight" = "午夜";
+"Theme.Earth" = "大地";

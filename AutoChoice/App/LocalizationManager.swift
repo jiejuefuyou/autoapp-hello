@@ -62,15 +62,32 @@ final class LocalizationManager {
         }
     }
 
+    /// Native-script display names. Hardcoded because Apple's
+    /// `localizedString(forLanguageCode:)` drops the script tag and collapses
+    /// "zh-Hans" + "zh-Hant" into a single "中文" label, which makes the two
+    /// Chinese options indistinguishable in the picker (user report 2026-05-13).
+    static let displayNames: [String: String] = [
+        "en":      "English",
+        "ja":      "日本語",
+        "ko":      "한국어",
+        "zh-Hans": "简体中文",
+        "zh-Hant": "繁體中文",
+        "es":      "Español",
+        "fr":      "Français",
+        "de":      "Deutsch",
+    ]
+
     /// Display name for a language code, rendered in that language's own script.
     static func displayName(for code: String) -> String {
         if code.isEmpty {
             return String(localized: "System default")
         }
+        if let native = displayNames[code] {
+            return native
+        }
         let locale = Locale(identifier: code)
-        // Render the language's name in its own language ("日本語", "한국어"...).
-        return locale.localizedString(forLanguageCode: code)?.capitalized
-            ?? Locale.current.localizedString(forLanguageCode: code)
+        return locale.localizedString(forIdentifier: code)
+            ?? Locale.current.localizedString(forIdentifier: code)
             ?? code
     }
 }

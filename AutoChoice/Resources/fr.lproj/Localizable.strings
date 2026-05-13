@@ -117,3 +117,26 @@
 "Unknown purchase result. Please try again." = "Résultat d'achat inconnu. Veuillez réessayer.";
 "Skip" = "Passer";
 "Skip onboarding" = "Passer l'introduction";
+
+/* v1.0.7 — i18n seed + theme names */
+"What to eat?" = "Que manger?";
+"Pizza" = "Pizza";
+"Sushi" = "Sushi";
+"Burger" = "Burger";
+"Salad" = "Salade";
+"Pasta" = "Pâtes";
+"Tacos" = "Tacos";
+"My list" = "Ma liste";
+"List %lld" = "Liste %lld";
+"Theme.Classic" = "Classique";
+"Theme.Pastel" = "Pastel";
+"Theme.Ocean" = "Océan";
+"Theme.Sunset" = "Coucher de soleil";
+"Theme.Neon" = "Néon";
+"Theme.Forest" = "Forêt";
+"Theme.Candy" = "Bonbon";
+"Theme.Mono" = "Mono";
+"Theme.Retro" = "Rétro";
+"Theme.Berry" = "Baies";
+"Theme.Midnight" = "Minuit";
+"Theme.Earth" = "Terre";

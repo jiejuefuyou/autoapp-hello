@@ -117,3 +117,26 @@
 "Unknown purchase result. Please try again." = "구매 결과를 확인할 수 없습니다. 다시 시도해 주세요.";
 "Skip" = "건너뛰기";
 "Skip onboarding" = "온보딩 건너뛰기";
+
+/* v1.0.7 — i18n seed + theme names */
+"What to eat?" = "뭐 먹지?";
+"Pizza" = "피자";
+"Sushi" = "스시";
+"Burger" = "버거";
+"Salad" = "샐러드";
+"Pasta" = "파스타";
+"Tacos" = "타코";
+"My list" = "내 목록";
+"List %lld" = "목록 %lld";
+"Theme.Classic" = "클래식";
+"Theme.Pastel" = "파스텔";
+"Theme.Ocean" = "오션";
+"Theme.Sunset" = "선셋";
+"Theme.Neon" = "네온";
+"Theme.Forest" = "포레스트";
+"Theme.Candy" = "캔디";
+"Theme.Mono" = "모노";
+"Theme.Retro" = "레트로";
+"Theme.Berry" = "베리";
+"Theme.Midnight" = "미드나이트";
+"Theme.Earth" = "어스";

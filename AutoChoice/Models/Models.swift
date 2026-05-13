@@ -75,25 +75,25 @@ struct HistoryEntry: Identifiable, Codable, Hashable {
 
 struct WheelTheme: Identifiable, Hashable {
     let id: String
-    let displayName: String
+    let displayNameKey: LocalizedStringKey
     let palette: [Color]
     let isPremium: Bool
 
     static let all: [WheelTheme] = [
-        // Free
-        WheelTheme(id: "classic",  displayName: "Classic", palette: [.red, .orange, .yellow, .green, .blue, .purple], isPremium: false),
-        WheelTheme(id: "pastel",   displayName: "Pastel",  palette: [hex("#FFB3BA"), hex("#FFDFBA"), hex("#FFFFBA"), hex("#BAFFC9"), hex("#BAE1FF"), hex("#D5BAFF")], isPremium: false),
+        // Free (4 themes)
+        WheelTheme(id: "classic",  displayNameKey: "Theme.Classic",  palette: [.red, .orange, .yellow, .green, .blue, .purple], isPremium: false),
+        WheelTheme(id: "pastel",   displayNameKey: "Theme.Pastel",   palette: [hex("#FFB3BA"), hex("#FFDFBA"), hex("#FFFFBA"), hex("#BAFFC9"), hex("#BAE1FF"), hex("#D5BAFF")], isPremium: false),
+        WheelTheme(id: "ocean",    displayNameKey: "Theme.Ocean",    palette: [hex("#03045E"), hex("#0077B6"), hex("#00B4D8"), hex("#90E0EF"), hex("#CAF0F8")], isPremium: false),
+        WheelTheme(id: "sunset",   displayNameKey: "Theme.Sunset",   palette: [hex("#F72585"), hex("#B5179E"), hex("#7209B7"), hex("#560BAD"), hex("#3A0CA3")], isPremium: false),
         // Premium
-        WheelTheme(id: "neon",     displayName: "Neon",     palette: [hex("#FF006E"), hex("#FB5607"), hex("#FFBE0B"), hex("#8338EC"), hex("#3A86FF"), hex("#06FFA5")], isPremium: true),
-        WheelTheme(id: "ocean",    displayName: "Ocean",    palette: [hex("#03045E"), hex("#0077B6"), hex("#00B4D8"), hex("#90E0EF"), hex("#CAF0F8")], isPremium: true),
-        WheelTheme(id: "sunset",   displayName: "Sunset",   palette: [hex("#F72585"), hex("#B5179E"), hex("#7209B7"), hex("#560BAD"), hex("#3A0CA3")], isPremium: true),
-        WheelTheme(id: "forest",   displayName: "Forest",   palette: [hex("#264653"), hex("#2A9D8F"), hex("#E9C46A"), hex("#F4A261"), hex("#E76F51")], isPremium: true),
-        WheelTheme(id: "candy",    displayName: "Candy",    palette: [hex("#FF70A6"), hex("#FF9770"), hex("#FFD670"), hex("#E9FF70"), hex("#70D6FF")], isPremium: true),
-        WheelTheme(id: "mono",     displayName: "Mono",     palette: [hex("#1A1A1A"), hex("#4D4D4D"), hex("#808080"), hex("#B3B3B3"), hex("#E6E6E6")], isPremium: true),
-        WheelTheme(id: "retro",    displayName: "Retro",    palette: [hex("#FFCDB2"), hex("#FFB4A2"), hex("#E5989B"), hex("#B5838D"), hex("#6D6875")], isPremium: true),
-        WheelTheme(id: "berry",    displayName: "Berry",    palette: [hex("#590D22"), hex("#800F2F"), hex("#A4133C"), hex("#C9184A"), hex("#FF4D6D"), hex("#FF758F")], isPremium: true),
-        WheelTheme(id: "midnight", displayName: "Midnight", palette: [hex("#10002B"), hex("#240046"), hex("#3C096C"), hex("#5A189A"), hex("#7B2CBF"), hex("#9D4EDD")], isPremium: true),
-        WheelTheme(id: "earth",    displayName: "Earth",    palette: [hex("#582F0E"), hex("#7F4F24"), hex("#936639"), hex("#A68A64"), hex("#B6AD90"), hex("#C2C5AA")], isPremium: true),
+        WheelTheme(id: "neon",     displayNameKey: "Theme.Neon",     palette: [hex("#FF006E"), hex("#FB5607"), hex("#FFBE0B"), hex("#8338EC"), hex("#3A86FF"), hex("#06FFA5")], isPremium: true),
+        WheelTheme(id: "forest",   displayNameKey: "Theme.Forest",   palette: [hex("#264653"), hex("#2A9D8F"), hex("#E9C46A"), hex("#F4A261"), hex("#E76F51")], isPremium: true),
+        WheelTheme(id: "candy",    displayNameKey: "Theme.Candy",    palette: [hex("#FF70A6"), hex("#FF9770"), hex("#FFD670"), hex("#E9FF70"), hex("#70D6FF")], isPremium: true),
+        WheelTheme(id: "mono",     displayNameKey: "Theme.Mono",     palette: [hex("#1A1A1A"), hex("#4D4D4D"), hex("#808080"), hex("#B3B3B3"), hex("#E6E6E6")], isPremium: true),
+        WheelTheme(id: "retro",    displayNameKey: "Theme.Retro",    palette: [hex("#FFCDB2"), hex("#FFB4A2"), hex("#E5989B"), hex("#B5838D"), hex("#6D6875")], isPremium: true),
+        WheelTheme(id: "berry",    displayNameKey: "Theme.Berry",    palette: [hex("#590D22"), hex("#800F2F"), hex("#A4133C"), hex("#C9184A"), hex("#FF4D6D"), hex("#FF758F")], isPremium: true),
+        WheelTheme(id: "midnight", displayNameKey: "Theme.Midnight", palette: [hex("#10002B"), hex("#240046"), hex("#3C096C"), hex("#5A189A"), hex("#7B2CBF"), hex("#9D4EDD")], isPremium: true),
+        WheelTheme(id: "earth",    displayNameKey: "Theme.Earth",    palette: [hex("#582F0E"), hex("#7F4F24"), hex("#936639"), hex("#A68A64"), hex("#B6AD90"), hex("#C2C5AA")], isPremium: true),
     ]
 
     static var classic: WheelTheme { all.first { $0.id == "classic" }! }

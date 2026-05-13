@@ -125,8 +125,7 @@ struct ChoiceListView: View {
             showPaywall = true
             return
         }
-        // Use a numeric default that doesn't need translation; users can rename.
-        let next = "List \(store.lists.count + 1)"
+        let next = String(format: String(localized: "List %lld"), store.lists.count + 1)
         _ = store.addList(name: next)
     }
 }

@@ -3,10 +3,10 @@ import Observation
 
 @Observable
 final class WheelStore {
-    static let freeChoiceLimit = 6
-    static let freeListLimit = 1
+    static let freeChoiceLimit = 8
+    static let freeListLimit = 2
     static let historyCap = 100
-    static let freeHistoryCap = 10
+    static let freeHistoryCap = 25
 
     var lists: [ChoiceList] = []
     var activeListID: UUID?
@@ -26,19 +26,31 @@ final class WheelStore {
 
     private func seed() {
         let starter = ChoiceList(
-            name: "What to eat?",
+            name: String(localized: "What to eat?"),
             choices: [
-                Choice(label: "Pizza"),
-                Choice(label: "Sushi"),
-                Choice(label: "Burger"),
-                Choice(label: "Salad"),
-                Choice(label: "Pasta"),
-                Choice(label: "Tacos"),
+                Choice(label: String(localized: "Pizza")),
+                Choice(label: String(localized: "Sushi")),
+                Choice(label: String(localized: "Burger")),
+                Choice(label: String(localized: "Salad")),
+                Choice(label: String(localized: "Pasta")),
+                Choice(label: String(localized: "Tacos")),
             ]
         )
-        lists = [starter]
+        let userList = ChoiceList(name: String(localized: "My list"), choices: [])
+        lists = [starter, userList]
         activeListID = starter.id
         save()
+    }
+
+    /// Legacy English seed signature — lists loaded from disk that exactly match
+    /// this were seeded before i18n support (v1.0.6 and earlier). Discard them
+    /// and re-seed so returning users get native-language defaults.
+    private var isLegacyEnglishSeed: Bool {
+        guard lists.count == 1 else { return false }
+        let list = lists[0]
+        guard list.name == "What to eat?" else { return false }
+        let expected = ["Pizza", "Sushi", "Burger", "Salad", "Pasta", "Tacos"]
+        return list.choices.map(\.label) == expected
     }
 
     var activeList: ChoiceList? {
@@ -184,5 +196,12 @@ final class WheelStore {
         activeListID = snap.activeListID
         history = snap.history
         selectedThemeID = snap.selectedThemeID
+        // Data migration: if the persisted data is the legacy English seed (shipped
+        // before v1.0.7 i18n support), discard it so seed() is called with the
+        // current locale — returning users get native-language defaults.
+        if isLegacyEnglishSeed {
+            lists = []
+            activeListID = nil
+        }
     }
 }
