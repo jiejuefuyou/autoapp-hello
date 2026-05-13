@@ -79,6 +79,10 @@ struct WheelTheme: Identifiable, Hashable {
     let palette: [Color]
     let isPremium: Bool
 
+    // LocalizedStringKey and Color do not synthesize Hashable; use id as sole key.
+    static func == (lhs: WheelTheme, rhs: WheelTheme) -> Bool { lhs.id == rhs.id }
+    func hash(into hasher: inout Hasher) { hasher.combine(id) }
+
     static let all: [WheelTheme] = [
         // Free (4 themes)
         WheelTheme(id: "classic",  displayNameKey: "Theme.Classic",  palette: [.red, .orange, .yellow, .green, .blue, .purple], isPremium: false),
