@@ -171,3 +171,14 @@
 "No more 8-item limits — add as many as you want" = "Plus de limite à 8 éléments — ajoutez-en autant que vous voulez";
 "Full history (was 25)" = "Historique complet (limité à 25 auparavant)";
 "All 12 themes unlocked" = "Les 12 thèmes débloqués";
+
+/* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
+"Share this wheel" = "Partager cette roue";
+"Undo last spin" = "Annuler le dernier tour";
+"Tap to spin" = "Touchez pour tourner";
+"Last result" = "Dernier résultat";
+"Shows your most recent AutoChoice spin" = "Affiche votre dernier tour AutoChoice";
+"Weight" = "Pondération";
+"Premium: Set weight" = "Premium : Définir la pondération";
+"Imported %@ — \"%@\"" = "Importé — \"%2$@\"";
+"This wheel has too many choices for free tier. Showing first 8." = "Cette roue a trop de choix pour le plan gratuit. Affichage des 8 premiers.";

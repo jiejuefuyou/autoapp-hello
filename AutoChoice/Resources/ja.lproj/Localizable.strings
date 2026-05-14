@@ -171,3 +171,14 @@
 "No more 8-item limits — add as many as you want" = "8 個制限なし — 選択肢を好きなだけ追加できます";
 "Full history (was 25)" = "完全な履歴 (旧: 25 件まで)";
 "All 12 themes unlocked" = "全 12 テーマが解放される";
+
+/* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
+"Share this wheel" = "このホイールを共有";
+"Undo last spin" = "最後のスピンを元に戻す";
+"Tap to spin" = "タップして回す";
+"Last result" = "最新の結果";
+"Shows your most recent AutoChoice spin" = "最新の AutoChoice スピン結果を表示します";
+"Weight" = "重み";
+"Premium: Set weight" = "プレミアム: 重みを設定";
+"Imported %@ — \"%@\"" = "インポート完了 — \"%2$@\"";
+"This wheel has too many choices for free tier. Showing first 8." = "無料プランでは選択肢が多すぎます。最初の 8 件を表示しています。";

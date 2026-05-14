@@ -172,26 +172,67 @@ struct ChoiceListView: View {
 
 private struct ChoiceEditRow: View {
     @Environment(WheelStore.self) private var store
+    @Environment(IAPManager.self) private var iap
     let choice: Choice
     let list: ChoiceList
     @State private var editing: String
+    @State private var weight: Double
+    @State private var showPaywall = false
 
     init(choice: Choice, list: ChoiceList) {
         self.choice = choice
         self.list = list
         self._editing = State(initialValue: choice.label)
+        self._weight = State(initialValue: choice.weight)
     }
 
     var body: some View {
-        TextField(LocalizedStringKey("Choice label"), text: $editing, onCommit: commit)
-            .submitLabel(.done)
-            .onChange(of: editing) { _, _ in }
-            .onDisappear(perform: commit)
+        VStack(alignment: .leading, spacing: 4) {
+            TextField(LocalizedStringKey("Choice label"), text: $editing, onCommit: commitLabel)
+                .submitLabel(.done)
+                .onDisappear(perform: commitLabel)
+
+            if iap.isPremium {
+                HStack(spacing: 6) {
+                    Text(LocalizedStringKey("Weight"))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Stepper(
+                        value: $weight,
+                        in: 0.1...10.0,
+                        step: 0.5,
+                        onEditingChanged: { isEditing in
+                            if !isEditing { commitWeight() }
+                        }
+                    ) {
+                        Text(String(format: "%.1f×", weight))
+                            .font(.caption.monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            } else {
+                Button {
+                    showPaywall = true
+                } label: {
+                    Label(LocalizedStringKey("Premium: Set weight"), systemImage: "lock.fill")
+                        .font(.caption)
+                        .foregroundStyle(.tint)
+                }
+                .buttonStyle(.plain)
+                .sheet(isPresented: $showPaywall) { PaywallView() }
+            }
+        }
+        .padding(.vertical, 2)
     }
 
-    private func commit() {
+    private func commitLabel() {
         let trimmed = editing.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty, trimmed != choice.label else { return }
         store.updateChoice(choice, in: list, label: trimmed)
+    }
+
+    private func commitWeight() {
+        guard weight != choice.weight else { return }
+        store.updateChoiceWeight(choice, in: list, weight: weight)
     }
 }

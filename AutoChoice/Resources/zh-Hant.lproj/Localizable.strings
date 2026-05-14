@@ -171,3 +171,14 @@
 "No more 8-item limits — add as many as you want" = "不再限制 8 個選項，隨意新增";
 "Full history (was 25)" = "完整紀錄（原來僅限 25 條）";
 "All 12 themes unlocked" = "全部 12 款主題解鎖";
+
+/* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
+"Share this wheel" = "分享此轉盤";
+"Undo last spin" = "復原上次旋轉";
+"Tap to spin" = "點擊旋轉";
+"Last result" = "最新結果";
+"Shows your most recent AutoChoice spin" = "顯示你最近一次 AutoChoice 旋轉的結果";
+"Weight" = "權重";
+"Premium: Set weight" = "會員專屬：設定權重";
+"Imported %@ — \"%@\"" = "已匯入 — \"%2$@\"";
+"This wheel has too many choices for free tier. Showing first 8." = "此轉盤選項超過免費版上限，僅顯示前 8 項。";

@@ -7,9 +7,12 @@ struct ContentView: View {
 
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding: Bool = false
 
+    /// Toast message injected by AutoChoiceApp after a shared-wheel deep link import.
+    @Binding var importToast: String?
+
     var body: some View {
         TabView {
-            WheelTab()
+            WheelTab(importToast: $importToast)
                 .tabItem { Label(LocalizedStringKey("Wheel"), systemImage: "circle.grid.cross.fill") }
             HistoryView()
                 .tabItem { Label(LocalizedStringKey("History"), systemImage: "clock.arrow.circlepath") }
@@ -37,6 +40,9 @@ private struct WheelTab: View {
     @State private var showLists = false
     @State private var resultBump = 0
     @State private var tickScheduler: SpinTickScheduler?
+    /// Transient toast for deep-link wheel import and other one-off messages.
+    @Binding var importToast: String?
+    @State private var showImportToast = false
 
     var body: some View {
         NavigationStack {
@@ -73,6 +79,11 @@ private struct WheelTab: View {
                     }
                     .accessibilityLabel(Text(LocalizedStringKey("Lists")))
                 }
+                ToolbarItem(placement: .topBarLeading) {
+                    if let list = store.activeList {
+                        shareWheelButton(list: list)
+                    }
+                }
                 if !iap.isPremium {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button { showPaywall = true } label: {
@@ -83,8 +94,54 @@ private struct WheelTab: View {
             }
             .sheet(isPresented: $showPaywall) { PaywallView() }
             .sheet(isPresented: $showLists) { ChoiceListView() }
+            .overlay(alignment: .top) {
+                if showImportToast, let msg = importToast {
+                    importToastBanner(msg)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .padding(.top, 8)
+                }
+            }
+            .onChange(of: importToast) { _, newValue in
+                guard newValue != nil else { return }
+                withAnimation(.spring) { showImportToast = true }
+                Task { @MainActor in
+                    try? await Task.sleep(for: .seconds(3))
+                    withAnimation { showImportToast = false }
+                    importToast = nil
+                }
+            }
         }
     }
+
+    // MARK: - Import Toast
+
+    @ViewBuilder
+    private func importToastBanner(_ message: String) -> some View {
+        Text(message)
+            .font(.subheadline.weight(.medium))
+            .padding(.horizontal, 18)
+            .padding(.vertical, 10)
+            .background(.tint, in: Capsule())
+            .foregroundStyle(.white)
+            .shadow(radius: 6, y: 3)
+    }
+
+    // MARK: - Share Wheel Button (toolbar)
+
+    @ViewBuilder
+    private func shareWheelButton(list: ChoiceList) -> some View {
+        // Universal Link preferred; custom scheme URL as fallback.
+        let shareURL = WheelShareService.universalURL(list: list)
+            ?? WheelShareService.schemeURL(list: list)
+            ?? URL(string: "https://apps.apple.com/app/id6765667062")!
+        ShareLink(item: shareURL) {
+            Image(systemName: "square.and.arrow.up.on.square")
+                .font(.body)
+        }
+        .accessibilityLabel(Text(LocalizedStringKey("Share this wheel")))
+    }
+
+    // MARK: - Result Banner
 
     @ViewBuilder
     private var resultBanner: some View {
@@ -92,7 +149,12 @@ private struct WheelTab: View {
             HStack(spacing: 8) {
                 Text(result.label)
                     .font(.system(size: 32, weight: .bold, design: .rounded))
-                shareButton(for: result.label)
+
+                shareResultButton(for: result.label)
+
+                if store.canUndo {
+                    undoButton
+                }
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 10)
@@ -107,8 +169,28 @@ private struct WheelTab: View {
         }
     }
 
+    // MARK: - Undo Button
+
+    private var undoButton: some View {
+        Button {
+            if store.undoLastSpin() {
+                Haptics.medium()
+                resultBump += 1
+            }
+        } label: {
+            Image(systemName: "arrow.uturn.backward")
+                .font(.title3)
+        }
+        .buttonStyle(.plain)
+        .frame(minWidth: 44, minHeight: 44)
+        .contentShape(Rectangle())
+        .accessibilityLabel(Text(LocalizedStringKey("Undo last spin")))
+    }
+
+    // MARK: - Share Result Button
+
     @ViewBuilder
-    private func shareButton(for resultLabel: String) -> some View {
+    private func shareResultButton(for resultLabel: String) -> some View {
         // Always render the share button so reviewers (and free-tier users) can
         // exercise the share affordance. Premium users get a high-resolution
         // gradient share card; free users get a plain text share that links to
@@ -136,6 +218,8 @@ private struct WheelTab: View {
             .accessibilityLabel(Text(LocalizedStringKey("Share result")))
         }
     }
+
+    // MARK: - Spin Button
 
     private var spinButton: some View {
         Button(action: handleSpin) {
@@ -399,7 +483,7 @@ private struct SpinSoundPicker: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(importToast: .constant(nil))
         .environment(WheelStore())
         .environment(IAPManager())
         .environment(LocalizationManager.shared)

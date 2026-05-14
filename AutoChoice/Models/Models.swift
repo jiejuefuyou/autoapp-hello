@@ -4,20 +4,25 @@ import SwiftUI
 struct Choice: Identifiable, Codable, Hashable {
     var id: UUID = UUID()
     var label: String
+    /// Relative spin weight. Default 1.0 means equal probability.
+    /// Range [0.1, 10.0]. Premium-only to set non-default values.
+    var weight: Double = 1.0
 
-    init(id: UUID = UUID(), label: String) {
+    init(id: UUID = UUID(), label: String, weight: Double = 1.0) {
         self.id = id
         self.label = label
+        self.weight = weight
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, label
+        case id, label, weight
     }
 
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        self.id    = try c.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
-        self.label = try c.decode(String.self,        forKey: .label)
+        self.id     = try c.decodeIfPresent(UUID.self,    forKey: .id)     ?? UUID()
+        self.label  = try c.decode(String.self,           forKey: .label)
+        self.weight = try c.decodeIfPresent(Double.self,  forKey: .weight) ?? 1.0
     }
 }
 

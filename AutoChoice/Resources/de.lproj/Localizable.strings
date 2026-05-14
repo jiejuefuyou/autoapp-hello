@@ -171,3 +171,14 @@
 "No more 8-item limits — add as many as you want" = "Kein 8-Einträge-Limit mehr — füge beliebig viele hinzu";
 "Full history (was 25)" = "Vollständiger Verlauf (bisher auf 25 begrenzt)";
 "All 12 themes unlocked" = "Alle 12 Designs freigeschaltet";
+
+/* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
+"Share this wheel" = "Dieses Rad teilen";
+"Undo last spin" = "Letzten Dreh rückgängig machen";
+"Tap to spin" = "Tippen zum Drehen";
+"Last result" = "Letztes Ergebnis";
+"Shows your most recent AutoChoice spin" = "Zeigt deinen letzten AutoChoice-Dreh";
+"Weight" = "Gewichtung";
+"Premium: Set weight" = "Premium: Gewichtung festlegen";
+"Imported %@ — \"%@\"" = "Importiert — \"%2$@\"";
+"This wheel has too many choices for free tier. Showing first 8." = "Dieses Rad hat zu viele Optionen für den Gratis-Plan. Es werden die ersten 8 angezeigt.";

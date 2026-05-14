@@ -171,3 +171,14 @@
 "No more 8-item limits — add as many as you want" = "8개 제한 없이 — 선택지를 마음껏 추가";
 "Full history (was 25)" = "전체 기록 (기존 25회 제한 해제)";
 "All 12 themes unlocked" = "12가지 테마 모두 잠금 해제";
+
+/* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
+"Share this wheel" = "이 휠 공유하기";
+"Undo last spin" = "마지막 돌리기 취소";
+"Tap to spin" = "눌러서 돌리기";
+"Last result" = "최신 결과";
+"Shows your most recent AutoChoice spin" = "가장 최근의 AutoChoice 결과를 표시합니다";
+"Weight" = "가중치";
+"Premium: Set weight" = "프리미엄: 가중치 설정";
+"Imported %@ — \"%@\"" = "가져오기 완료 — \"%2$@\"";
+"This wheel has too many choices for free tier. Showing first 8." = "이 휠의 선택지가 무료 플랜 한도를 초과합니다. 처음 8개만 표시됩니다.";

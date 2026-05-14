@@ -171,3 +171,14 @@
 "No more 8-item limits — add as many as you want" = "No more 8-item limits — add as many as you want";
 "Full history (was 25)" = "Full history (was 25)";
 "All 12 themes unlocked" = "All 12 themes unlocked";
+
+/* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
+"Share this wheel" = "Share this wheel";
+"Undo last spin" = "Undo last spin";
+"Tap to spin" = "Tap to spin";
+"Last result" = "Last result";
+"Shows your most recent AutoChoice spin" = "Shows your most recent AutoChoice spin";
+"Weight" = "Weight";
+"Premium: Set weight" = "Premium: Set weight";
+"Imported %@ — \"%@\"" = "Imported — \"%2$@\"";
+"This wheel has too many choices for free tier. Showing first 8." = "This wheel has too many choices for free tier. Showing first 8.";

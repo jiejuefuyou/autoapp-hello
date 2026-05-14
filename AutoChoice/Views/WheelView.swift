@@ -46,11 +46,18 @@ struct WheelView: View {
 
     @ViewBuilder
     private func wheel(size: CGFloat) -> some View {
-        let segment = 360.0 / Double(choices.count)
+        // Compute weighted segment angles so the visual slice matches the spin probability.
+        // All weights clamped to ≥ 0.1 to avoid zero-area segments.
+        let totalWeight = choices.reduce(0.0) { $0 + max(0.1, $1.weight) }
         ZStack {
             ForEach(Array(choices.enumerated()), id: \.element.id) { idx, choice in
-                let start = segment * Double(idx) - 90
-                let end = segment * Double(idx + 1) - 90
+                let precedingWeight = choices[0..<idx].reduce(0.0) { $0 + max(0.1, $1.weight) }
+                let ownWeight = max(0.1, choice.weight)
+                // -90 offset so index 0 starts at the top (where the pointer is).
+                let start = (precedingWeight / totalWeight) * 360.0 - 90.0
+                let end   = ((precedingWeight + ownWeight) / totalWeight) * 360.0 - 90.0
+                let midAngle = start + (end - start) / 2
+
                 SegmentShape(start: .degrees(start), end: .degrees(end))
                     .fill(palette[idx % palette.count])
                     .overlay(
@@ -59,7 +66,7 @@ struct WheelView: View {
                     )
                 SegmentLabel(
                     text: choice.label,
-                    angleDegrees: start + segment / 2 + 90, // local angle from top
+                    angleDegrees: midAngle + 90, // local angle from top for label
                     radius: size * 0.34
                 )
             }

@@ -171,3 +171,14 @@
 "No more 8-item limits — add as many as you want" = "不再限制 8 个选项，随意添加";
 "Full history (was 25)" = "完整历史记录（原来仅限 25 条）";
 "All 12 themes unlocked" = "全部 12 款主题解锁";
+
+/* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
+"Share this wheel" = "分享此转盘";
+"Undo last spin" = "撤销上次旋转";
+"Tap to spin" = "点击旋转";
+"Last result" = "最新结果";
+"Shows your most recent AutoChoice spin" = "显示你最近一次 AutoChoice 旋转的结果";
+"Weight" = "权重";
+"Premium: Set weight" = "会员专属：设置权重";
+"Imported %@ — \"%@\"" = "已导入 — \"%2$@\"";
+"This wheel has too many choices for free tier. Showing first 8." = "此转盘选项超过免费版上限，仅显示前 8 项。";
