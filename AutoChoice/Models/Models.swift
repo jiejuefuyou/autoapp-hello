@@ -119,6 +119,71 @@ private func hex(_ s: String) -> Color {
     return Color(.sRGB, red: r, green: g, blue: b, opacity: 1)
 }
 
+// MARK: - WheelReminder (v1.1.0 Reminders feature)
+
+/// A single local-notification reminder attached to a specific wheel list.
+/// Premium-only; stored in WheelStore.reminders and persisted via Snapshot.
+struct WheelReminder: Identifiable, Codable, Hashable {
+    let id: UUID
+    var listID: UUID
+    var enabled: Bool
+    /// Hour and minute components for UNCalendarNotificationTrigger.
+    var time: DateComponents
+    /// Weekday set using Apple convention: 1 = Sunday … 7 = Saturday.
+    /// Empty set (or all 7) means "every day".
+    var weekdays: Set<Int>
+    /// Optional user-supplied label shown as the notification title.
+    /// Falls back to the localised "Time to spin!" string when empty.
+    var label: String
+
+    init(
+        listID: UUID,
+        hour: Int,
+        minute: Int,
+        weekdays: Set<Int> = [],
+        label: String = ""
+    ) {
+        self.id = UUID()
+        self.listID = listID
+        self.enabled = true
+        self.time = DateComponents(hour: hour, minute: minute)
+        self.weekdays = weekdays
+        self.label = label
+    }
+
+    /// True when the reminder should fire every day regardless of weekday.
+    var isEveryDay: Bool { weekdays.isEmpty || weekdays.count == 7 }
+
+    // MARK: - Codable
+
+    enum CodingKeys: String, CodingKey {
+        case id, listID, enabled, timeHour, timeMinute, weekdays, label
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(id,               forKey: .id)
+        try c.encode(listID,           forKey: .listID)
+        try c.encode(enabled,          forKey: .enabled)
+        try c.encode(time.hour ?? 12,  forKey: .timeHour)
+        try c.encode(time.minute ?? 0, forKey: .timeMinute)
+        try c.encode(weekdays,         forKey: .weekdays)
+        try c.encode(label,            forKey: .label)
+    }
+
+    init(from decoder: Decoder) throws {
+        let c       = try decoder.container(keyedBy: CodingKeys.self)
+        id          = try c.decode(UUID.self,   forKey: .id)
+        listID      = try c.decode(UUID.self,   forKey: .listID)
+        enabled     = try c.decodeIfPresent(Bool.self, forKey: .enabled) ?? true
+        let hour    = try c.decodeIfPresent(Int.self,  forKey: .timeHour)   ?? 12
+        let minute  = try c.decodeIfPresent(Int.self,  forKey: .timeMinute) ?? 0
+        time        = DateComponents(hour: hour, minute: minute)
+        weekdays    = try c.decodeIfPresent(Set<Int>.self, forKey: .weekdays) ?? []
+        label       = try c.decodeIfPresent(String.self,  forKey: .label)    ?? ""
+    }
+}
+
 extension Array {
     subscript(safe index: Int) -> Element? {
         indices.contains(index) ? self[index] : nil

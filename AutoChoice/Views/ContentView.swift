@@ -334,6 +334,36 @@ private struct SettingsTab: View {
                     Button(LocalizedStringKey("Restore Purchase")) { Task { await iap.restore() } }
                 }
 
+                // v1.1.0 — Reminders (Premium-only local notifications)
+                Section {
+                    NavigationLink {
+                        RemindersListView()
+                            .environment(store)
+                            .environment(iap)
+                    } label: {
+                        HStack {
+                            Image(systemName: "bell.fill")
+                                .foregroundStyle(.tint)
+                                .accessibilityHidden(true)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(LocalizedStringKey("Reminders"))
+                                if !iap.isPremium {
+                                    Text(LocalizedStringKey("Premium"))
+                                        .font(.caption2)
+                                        .foregroundStyle(.orange)
+                                }
+                            }
+                            Spacer()
+                            if iap.isPremium && !store.reminders.isEmpty {
+                                Text("\(store.reminders.filter(\.enabled).count)")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .frame(minHeight: 44)
+                    }
+                }
+
                 // v1.0.9 — 4-app discovery network cross-promo section
                 Section(LocalizedStringKey("More from Hao Sun")) {
                     Link(destination: URL(string: "https://apps.apple.com/app/id6765669356")!) {

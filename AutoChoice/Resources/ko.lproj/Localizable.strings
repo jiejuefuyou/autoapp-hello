@@ -172,6 +172,26 @@
 "Full history (was 25)" = "전체 기록 (기존 25회 제한 해제)";
 "All 12 themes unlocked" = "12가지 테마 모두 잠금 해제";
 
+/* v1.1.0 — Reminders */
+"Reminders" = "알림";
+"Premium feature" = "프리미엄 기능";
+"Schedule daily reminders to spin your wheels. Available with AutoChoice Premium." = "매일 돌리기 알림을 설정하세요. AutoChoice 프리미엄에서 이용 가능합니다.";
+"No reminders yet" = "알림이 아직 없습니다";
+"Tap + to schedule a daily spin reminder." = "「+」를 눌러 매일 돌리기 알림을 추가하세요.";
+"Time to spin!" = "돌릴 시간이에요!";
+"Spin \"%@\" for a quick decision." = "「%@」를 돌려서 빠르게 결정하세요.";
+"Daily" = "매일";
+"Every day" = "매일";
+"Label (optional)" = "레이블 (선택 사항)";
+"e.g., Lunch decision" = "예: 점심 메뉴 결정";
+"Edit reminder" = "알림 편집";
+"Delete reminder" = "알림 삭제";
+"Unknown list" = "알 수 없는 목록";
+"Add reminder" = "알림 추가";
+"Repeat" = "반복";
+"Time" = "시간";
+"List" = "목록";
+
 /* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
 "Share this wheel" = "이 휠 공유하기";
 "Undo last spin" = "마지막 돌리기 취소";

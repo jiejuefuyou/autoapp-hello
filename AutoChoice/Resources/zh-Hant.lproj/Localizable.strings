@@ -172,6 +172,26 @@
 "Full history (was 25)" = "完整紀錄（原來僅限 25 條）";
 "All 12 themes unlocked" = "全部 12 款主題解鎖";
 
+/* v1.1.0 — Reminders */
+"Reminders" = "提醒";
+"Premium feature" = "會員專屬功能";
+"Schedule daily reminders to spin your wheels. Available with AutoChoice Premium." = "設定每日旋轉提醒。需要 AutoChoice 會員。";
+"No reminders yet" = "尚無提醒";
+"Tap + to schedule a daily spin reminder." = "點擊「+」新增每日旋轉提醒。";
+"Time to spin!" = "該轉轉盤了！";
+"Spin \"%@\" for a quick decision." = "轉動「%@」，快速做決定。";
+"Daily" = "每天";
+"Every day" = "每天";
+"Label (optional)" = "標籤（選填）";
+"e.g., Lunch decision" = "例如：午餐選什麼";
+"Edit reminder" = "編輯提醒";
+"Delete reminder" = "刪除提醒";
+"Unknown list" = "未知清單";
+"Add reminder" = "新增提醒";
+"Repeat" = "重複";
+"Time" = "時間";
+"List" = "清單";
+
 /* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
 "Share this wheel" = "分享此轉盤";
 "Undo last spin" = "復原上次旋轉";

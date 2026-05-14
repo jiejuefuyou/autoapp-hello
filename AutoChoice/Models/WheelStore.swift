@@ -15,6 +15,16 @@ final class WheelStore {
     var activeListID: UUID?
     var history: [HistoryEntry] = []
     var selectedThemeID: String = "classic"
+    // v1.1.0 — Reminders (Premium-only local notifications).
+    // didSet triggers an async refresh of all scheduled UNCalendarNotificationTriggers.
+    var reminders: [WheelReminder] = [] {
+        didSet {
+            save()
+            let snapshot = reminders
+            let listsSnapshot = lists
+            Task { await NotificationService.refreshReminders(snapshot, lists: listsSnapshot) }
+        }
+    }
 
     var currentRotation: Double = 0
     var isSpinning: Bool = false
@@ -289,16 +299,24 @@ final class WheelStore {
         var activeListID: UUID?
         var history: [HistoryEntry]
         var selectedThemeID: String
+        var reminders: [WheelReminder]
 
         enum CodingKeys: String, CodingKey {
-            case lists, activeListID, history, selectedThemeID
+            case lists, activeListID, history, selectedThemeID, reminders
         }
 
-        init(lists: [ChoiceList], activeListID: UUID?, history: [HistoryEntry], selectedThemeID: String) {
+        init(
+            lists: [ChoiceList],
+            activeListID: UUID?,
+            history: [HistoryEntry],
+            selectedThemeID: String,
+            reminders: [WheelReminder]
+        ) {
             self.lists = lists
             self.activeListID = activeListID
             self.history = history
             self.selectedThemeID = selectedThemeID
+            self.reminders = reminders
         }
 
         init(from decoder: Decoder) throws {
@@ -307,6 +325,7 @@ final class WheelStore {
             self.activeListID    = try c.decodeIfPresent(UUID.self,   forKey: .activeListID)
             self.history         = (try? c.decode([HistoryEntry].self, forKey: .history)) ?? []
             self.selectedThemeID = try c.decodeIfPresent(String.self, forKey: .selectedThemeID) ?? "classic"
+            self.reminders       = (try? c.decode([WheelReminder].self, forKey: .reminders)) ?? []
         }
     }
 
@@ -316,7 +335,13 @@ final class WheelStore {
     }
 
     private func save() {
-        let snap = Snapshot(lists: lists, activeListID: activeListID, history: history, selectedThemeID: selectedThemeID)
+        let snap = Snapshot(
+            lists: lists,
+            activeListID: activeListID,
+            history: history,
+            selectedThemeID: selectedThemeID,
+            reminders: reminders
+        )
         do {
             let data = try JSONEncoder().encode(snap)
             try data.write(to: saveURL, options: .atomic)
@@ -332,6 +357,7 @@ final class WheelStore {
         activeListID = snap.activeListID
         history = snap.history
         selectedThemeID = snap.selectedThemeID
+        reminders = snap.reminders
         // Data migration: if the persisted data is the legacy English seed (shipped
         // before v1.0.7 i18n support), discard it so seed() is called with the
         // current locale — returning users get native-language defaults.

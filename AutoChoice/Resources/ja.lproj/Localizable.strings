@@ -172,6 +172,26 @@
 "Full history (was 25)" = "完全な履歴 (旧: 25 件まで)";
 "All 12 themes unlocked" = "全 12 テーマが解放される";
 
+/* v1.1.0 — Reminders */
+"Reminders" = "リマインダー";
+"Premium feature" = "プレミアム機能";
+"Schedule daily reminders to spin your wheels. Available with AutoChoice Premium." = "毎日のスピンリマインダーを設定できます。AutoChoice プレミアムでご利用いただけます。";
+"No reminders yet" = "リマインダーはまだありません";
+"Tap + to schedule a daily spin reminder." = "「+」をタップして毎日のスピンリマインダーを追加しましょう。";
+"Time to spin!" = "スピンの時間です！";
+"Spin \"%@\" for a quick decision." = "「%@」を回してすぐに決めましょう。";
+"Daily" = "毎日";
+"Every day" = "毎日";
+"Label (optional)" = "ラベル（任意）";
+"e.g., Lunch decision" = "例: 昼食を決める";
+"Edit reminder" = "リマインダーを編集";
+"Delete reminder" = "リマインダーを削除";
+"Unknown list" = "不明なリスト";
+"Add reminder" = "リマインダーを追加";
+"Repeat" = "繰り返し";
+"Time" = "時刻";
+"List" = "リスト";
+
 /* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
 "Share this wheel" = "このホイールを共有";
 "Undo last spin" = "最後のスピンを元に戻す";

@@ -172,6 +172,26 @@
 "Full history (was 25)" = "Historial completo (antes limitado a 25)";
 "All 12 themes unlocked" = "Los 12 temas desbloqueados";
 
+/* v1.1.0 — Reminders */
+"Reminders" = "Recordatorios";
+"Premium feature" = "Función Premium";
+"Schedule daily reminders to spin your wheels. Available with AutoChoice Premium." = "Programa recordatorios diarios para girar tus ruedas. Disponible con AutoChoice Premium.";
+"No reminders yet" = "Sin recordatorios";
+"Tap + to schedule a daily spin reminder." = "Toca «+» para programar un recordatorio diario de giro.";
+"Time to spin!" = "¡Hora de girar!";
+"Spin \"%@\" for a quick decision." = "Gira «%@» para decidir rápido.";
+"Daily" = "Diario";
+"Every day" = "Todos los días";
+"Label (optional)" = "Etiqueta (opcional)";
+"e.g., Lunch decision" = "Ej.: Decidir el almuerzo";
+"Edit reminder" = "Editar recordatorio";
+"Delete reminder" = "Eliminar recordatorio";
+"Unknown list" = "Lista desconocida";
+"Add reminder" = "Añadir recordatorio";
+"Repeat" = "Repetir";
+"Time" = "Hora";
+"List" = "Lista";
+
 /* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
 "Share this wheel" = "Compartir esta rueda";
 "Undo last spin" = "Deshacer último giro";

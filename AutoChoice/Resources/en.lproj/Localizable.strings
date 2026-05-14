@@ -172,6 +172,26 @@
 "Full history (was 25)" = "Full history (was 25)";
 "All 12 themes unlocked" = "All 12 themes unlocked";
 
+/* v1.1.0 — Reminders (Premium-only local notifications) */
+"Reminders" = "Reminders";
+"Premium feature" = "Premium feature";
+"Schedule daily reminders to spin your wheels. Available with AutoChoice Premium." = "Schedule daily reminders to spin your wheels. Available with AutoChoice Premium.";
+"No reminders yet" = "No reminders yet";
+"Tap + to schedule a daily spin reminder." = "Tap + to schedule a daily spin reminder.";
+"Time to spin!" = "Time to spin!";
+"Spin \"%@\" for a quick decision." = "Spin \"%@\" for a quick decision.";
+"Daily" = "Daily";
+"Every day" = "Every day";
+"Label (optional)" = "Label (optional)";
+"e.g., Lunch decision" = "e.g., Lunch decision";
+"Edit reminder" = "Edit reminder";
+"Delete reminder" = "Delete reminder";
+"Unknown list" = "Unknown list";
+"Add reminder" = "Add reminder";
+"Repeat" = "Repeat";
+"Time" = "Time";
+"List" = "List";
+
 /* v1.1.0 — Social shared wheel + Widget + Undo + Weighted choices */
 "Share this wheel" = "Share this wheel";
 "Undo last spin" = "Undo last spin";
