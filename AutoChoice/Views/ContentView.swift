@@ -300,10 +300,7 @@ private struct ThemeTile: View {
                 .lineLimit(1)
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text(isSelected
-            ? String(format: String(localized: "%@ theme, selected"), String(localized: theme.displayNameKey))
-            : String(format: String(localized: "%@ theme"), String(localized: theme.displayNameKey))
-        ))
+        .accessibilityLabel(Text(theme.displayNameKey))
         .accessibilityAddTraits(isSelected ? [.isSelected, .isButton] : .isButton)
     }
 }

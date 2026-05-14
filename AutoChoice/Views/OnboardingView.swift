@@ -35,10 +35,7 @@ struct OnboardingView: View {
                 ForEach(Array(pages.enumerated()), id: \.offset) { idx, p in
                     pageView(p)
                         .tag(idx)
-                        .accessibilityLabel(Text(
-                            String(format: String(localized: "Page %lld of %lld: %@"),
-                                   Int64(idx + 1), Int64(pages.count), String(localized: p.titleKey))
-                        ))
+                        .accessibilityLabel(Text(p.titleKey))
                 }
             }
             .tabViewStyle(.page)
