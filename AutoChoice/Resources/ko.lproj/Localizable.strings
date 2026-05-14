@@ -156,3 +156,18 @@
 "Purchase AutoChoice Premium for %@" = "%@에 AutoChoice 프리미엄 구매";
 "Restores a previous purchase" = "이전 구매를 복원합니다";
 "Page %lld of %lld: %@" = "%lld/%lld 페이지: %@";
+
+/* v1.0.9 — paywall soft banner (5-choice threshold) */
+"You're using AutoChoice a lot!" = "AutoChoice를 정말 자주 쓰시네요!";
+"Unlock Premium for unlimited lists + themes." = "프리미엄으로 목록과 테마를 무제한으로 이용하세요.";
+
+/* v1.0.9 — cross-promo Settings section */
+"More from Hao Sun" = "Hao Sun의 다른 앱";
+"Countdown to what matters" = "중요한 날까지 카운트다운";
+"AI prompt library" = "AI 프롬프트 라이브러리";
+"Track every summit" = "모든 정상을 기록";
+
+/* v1.0.9 — paywall features reorder (pain-strength ranked) */
+"No more 8-item limits — add as many as you want" = "8개 제한 없이 — 선택지를 마음껏 추가";
+"Full history (was 25)" = "전체 기록 (기존 25회 제한 해제)";
+"All 12 themes unlocked" = "12가지 테마 모두 잠금 해제";

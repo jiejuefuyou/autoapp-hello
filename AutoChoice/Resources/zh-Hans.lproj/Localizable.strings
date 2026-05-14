@@ -156,3 +156,18 @@
 "Purchase AutoChoice Premium for %@" = "以 %@ 购买 AutoChoice 高级版";
 "Restores a previous purchase" = "恢复之前的购买";
 "Page %lld of %lld: %@" = "第 %lld 页，共 %lld 页：%@";
+
+/* v1.0.9 — paywall soft banner (5-choice threshold) */
+"You're using AutoChoice a lot!" = "你已经很常使用 AutoChoice 了！";
+"Unlock Premium for unlimited lists + themes." = "解锁会员，享受无限列表和主题。";
+
+/* v1.0.9 — cross-promo Settings section */
+"More from Hao Sun" = "孙昊的其他作品";
+"Countdown to what matters" = "重要日子倒计时";
+"AI prompt library" = "AI 提示词库";
+"Track every summit" = "记录每座山顶";
+
+/* v1.0.9 — paywall features reorder (pain-strength ranked) */
+"No more 8-item limits — add as many as you want" = "不再限制 8 个选项，随意添加";
+"Full history (was 25)" = "完整历史记录（原来仅限 25 条）";
+"All 12 themes unlocked" = "全部 12 款主题解锁";

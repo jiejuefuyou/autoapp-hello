@@ -250,6 +250,19 @@ private struct SettingsTab: View {
                     Button(LocalizedStringKey("Restore Purchase")) { Task { await iap.restore() } }
                 }
 
+                // v1.0.9 — 4-app discovery network cross-promo section
+                Section(LocalizedStringKey("More from Hao Sun")) {
+                    Link(destination: URL(string: "https://apps.apple.com/app/id6765669356")!) {
+                        crossPromoRow(icon: "calendar", name: "DaysUntil", tagline: LocalizedStringKey("Countdown to what matters"))
+                    }
+                    Link(destination: URL(string: "https://apps.apple.com/app/id6765668776")!) {
+                        crossPromoRow(icon: "doc.text.below.ecg", name: "PromptVault", tagline: LocalizedStringKey("AI prompt library"))
+                    }
+                    Link(destination: URL(string: "https://apps.apple.com/app/id6765668577")!) {
+                        crossPromoRow(icon: "mountain.2.fill", name: "AltitudeNow", tagline: LocalizedStringKey("Track every summit"))
+                    }
+                }
+
                 Section(LocalizedStringKey("About")) {
                     LabeledContent(LocalizedStringKey("Version"), value: appVersion)
                     LabeledContent(LocalizedStringKey("Build"),   value: buildNumber)
@@ -263,6 +276,31 @@ private struct SettingsTab: View {
             .navigationTitle(Text("Settings"))
             .sheet(isPresented: $showPaywall) { PaywallView() }
         }
+    }
+
+    @ViewBuilder
+    private func crossPromoRow(icon: String, name: String, tagline: LocalizedStringKey) -> some View {
+        HStack {
+            Image(systemName: icon)
+                .font(.title3)
+                .foregroundStyle(.tint)
+                .frame(width: 28)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(name)
+                    .font(.body)
+                    .foregroundStyle(.primary)
+                Text(tagline)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            Image(systemName: "arrow.up.right.square")
+                .font(.footnote)
+                .foregroundStyle(.tertiary)
+                .accessibilityHidden(true)
+        }
+        .contentShape(Rectangle())
     }
 
     private var appVersion: String {

@@ -50,6 +50,12 @@ struct ChoiceListView: View {
                             limitNote
                         }
                     }
+
+                    // v1.0.9: soft upsell banner at 5-choice threshold — persistent,
+                    // non-blocking (spin still works), shows before the hard 8-choice wall.
+                    if !iap.isPremium && (active.choices.count) >= 5 {
+                        softUpsellBanner
+                    }
                 }
             }
             .navigationTitle(Text(LocalizedStringKey("Manage")))
@@ -102,6 +108,34 @@ struct ChoiceListView: View {
                 Image(systemName: "ellipsis").foregroundStyle(.secondary)
             }
         }
+    }
+
+    // v1.0.9 — soft banner at 5 choices (non-modal, spin still works)
+    private var softUpsellBanner: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "lock.open.fill")
+                .foregroundStyle(.orange)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(LocalizedStringKey("You're using AutoChoice a lot!"))
+                    .font(.subheadline.weight(.semibold))
+                Text(LocalizedStringKey("Unlock Premium for unlimited lists + themes."))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            Button(LocalizedStringKey("Upgrade")) {
+                showPaywall = true
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.small)
+        }
+        .padding(12)
+        .background(.orange.opacity(0.1), in: RoundedRectangle(cornerRadius: 12))
+        .padding(.horizontal)
+        .padding(.vertical, 4)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text(LocalizedStringKey("You're using AutoChoice a lot! Unlock Premium for unlimited lists + themes.")))
     }
 
     private var limitNote: some View {

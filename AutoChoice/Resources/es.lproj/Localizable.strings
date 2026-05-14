@@ -156,3 +156,18 @@
 "Purchase AutoChoice Premium for %@" = "Comprar AutoChoice Premium por %@";
 "Restores a previous purchase" = "Restaura una compra anterior";
 "Page %lld of %lld: %@" = "Página %lld de %lld: %@";
+
+/* v1.0.9 — paywall soft banner (5-choice threshold) */
+"You're using AutoChoice a lot!" = "¡Ya llevas muchas opciones en AutoChoice!";
+"Unlock Premium for unlimited lists + themes." = "Desbloquea Premium para listas y temas ilimitados.";
+
+/* v1.0.9 — cross-promo Settings section */
+"More from Hao Sun" = "Más de Hao Sun";
+"Countdown to what matters" = "Cuenta atrás para lo importante";
+"AI prompt library" = "Biblioteca de prompts IA";
+"Track every summit" = "Registra cada cumbre";
+
+/* v1.0.9 — paywall features reorder (pain-strength ranked) */
+"No more 8-item limits — add as many as you want" = "Sin límite de 8 opciones — añade todas las que quieras";
+"Full history (was 25)" = "Historial completo (antes limitado a 25)";
+"All 12 themes unlocked" = "Los 12 temas desbloqueados";

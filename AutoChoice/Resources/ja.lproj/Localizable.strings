@@ -156,3 +156,18 @@
 "Purchase AutoChoice Premium for %@" = "AutoChoice プレミアムを %@ で購入";
 "Restores a previous purchase" = "以前の購入を復元します";
 "Page %lld of %lld: %@" = "%lld ページ中 %lld ページ: %@";
+
+/* v1.0.9 — paywall soft banner (5-choice threshold) */
+"You're using AutoChoice a lot!" = "AutoChoice をよく使っていますね!";
+"Unlock Premium for unlimited lists + themes." = "プレミアムでリストとテーマを無制限に解放。";
+
+/* v1.0.9 — cross-promo Settings section */
+"More from Hao Sun" = "ハオ・サンの他のアプリ";
+"Countdown to what matters" = "大切な日まであと何日";
+"AI prompt library" = "AIプロンプトライブラリ";
+"Track every summit" = "すべての山頂を記録";
+
+/* v1.0.9 — paywall features reorder (pain-strength ranked) */
+"No more 8-item limits — add as many as you want" = "8 個制限なし — 選択肢を好きなだけ追加できます";
+"Full history (was 25)" = "完全な履歴 (旧: 25 件まで)";
+"All 12 themes unlocked" = "全 12 テーマが解放される";

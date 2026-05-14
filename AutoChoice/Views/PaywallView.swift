@@ -26,11 +26,12 @@ struct PaywallView: View {
                         .foregroundStyle(.secondary)
                         .padding(.horizontal)
 
+                    // v1.0.9: reordered by pain-strength (highest friction first)
                     VStack(alignment: .leading, spacing: 14) {
-                        feature("infinity",                "Unlimited choices per wheel")
-                        feature("paintpalette.fill",       "10+ premium themes")
+                        feature("infinity",                "No more 8-item limits — add as many as you want")
                         feature("rectangle.stack.fill",    "Unlimited saved lists")
-                        feature("clock.arrow.circlepath",  "Decision history")
+                        feature("clock.arrow.circlepath",  "Full history (was 25)")
+                        feature("paintpalette.fill",       "All 12 themes unlocked")
                         feature("square.and.arrow.up",     "Share result cards")
                     }
                     .padding()
