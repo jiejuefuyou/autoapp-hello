@@ -6,6 +6,11 @@ import QuartzCore
 /// Produces an accelerating-then-decelerating tick cadence (80 ms → 300 ms)
 /// that mirrors the spring-damping wheel animation so the audio sequence
 /// feels coupled to the visual deceleration.
+///
+/// Swift 6 concurrency note: CADisplayLink callbacks arrive on the main run
+/// loop, but the @objc selector context is nonisolated. We bridge via
+/// Task { @MainActor in … } so `handleTick` stays purely MainActor-isolated
+/// without requiring `nonisolated(unsafe)` or `MainActor.assumeIsolated`.
 @MainActor
 final class SpinTickScheduler {
     private var displayLink: CADisplayLink?
@@ -24,7 +29,7 @@ final class SpinTickScheduler {
         stop()
         startTime = CACurrentMediaTime()
         lastTickTime = startTime
-        let link = CADisplayLink(target: TickTarget(scheduler: self), selector: #selector(TickTarget.tick))
+        let link = CADisplayLink(target: self, selector: #selector(displayLinkFired))
         link.preferredFramesPerSecond = 60
         link.add(to: .main, forMode: .common)
         displayLink = link
@@ -35,7 +40,13 @@ final class SpinTickScheduler {
         displayLink = nil
     }
 
-    fileprivate func handleTick() {
+    @objc nonisolated private func displayLinkFired() {
+        Task { @MainActor [weak self] in
+            self?.handleTick()
+        }
+    }
+
+    private func handleTick() {
         let now = CACurrentMediaTime()
         let elapsed = now - startTime
         guard elapsed < duration else {
@@ -52,10 +63,4 @@ final class SpinTickScheduler {
             onTick()
         }
     }
-}
-
-private final class TickTarget {
-    weak var scheduler: SpinTickScheduler?
-    init(scheduler: SpinTickScheduler) { self.scheduler = scheduler }
-    @objc func tick() { scheduler?.handleTick() }
 }
