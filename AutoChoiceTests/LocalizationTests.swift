@@ -6,15 +6,21 @@ final class LocalizationTests: XCTestCase {
     // MARK: - Helpers
 
     /// Load the Localizable.strings table for a given BCP-47 code directly
-    /// from the app bundle, returning the key→value dictionary.
+    /// from the app bundle (NOT test bundle), returning the key→value dictionary.
+    /// Uses `forLocalization:` which correctly resolves .lproj — the previous
+    /// `subdirectory:` approach failed because Apple treats .lproj as a special
+    /// locale directory, not a generic subdirectory.
     private func strings(for code: String) -> [String: String] {
-        guard let url = Bundle(for: LocalizationTests.self)
-            .url(forResource: "Localizable",
-                 withExtension: "strings",
-                 subdirectory: "\(code).lproj") else {
+        // Bundle(for:) with a class from the main app target returns the app
+        // bundle (containing Localizable.strings), not the test bundle.
+        let appBundle = Bundle(for: LocalizationManager.self)
+        guard let path = appBundle.path(forResource: "Localizable",
+                                         ofType: "strings",
+                                         inDirectory: nil,
+                                         forLocalization: code) else {
             return [:]
         }
-        return (NSDictionary(contentsOf: url) as? [String: String]) ?? [:]
+        return (NSDictionary(contentsOfFile: path) as? [String: String]) ?? [:]
     }
 
     // MARK: - Tests
