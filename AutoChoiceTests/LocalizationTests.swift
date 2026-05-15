@@ -5,15 +5,14 @@ final class LocalizationTests: XCTestCase {
 
     // MARK: - Helpers
 
-    /// Load the Localizable.strings table for a given BCP-47 code directly
-    /// from the app bundle (NOT test bundle), returning the key→value dictionary.
-    /// Uses `forLocalization:` which correctly resolves .lproj — the previous
-    /// `subdirectory:` approach failed because Apple treats .lproj as a special
-    /// locale directory, not a generic subdirectory.
+    /// Load the Localizable.strings table for a given BCP-47 code from the
+    /// HOST APP bundle. With @testable import, `Bundle(for:)` returns the
+    /// TEST bundle (because the type is recompiled into it). For unit tests
+    /// hosted by an app, `Bundle.main` is the host app's bundle (which
+    /// contains the .lproj resources). Fall back to scanning Bundle.allBundles
+    /// for any .app bundle in case the test runner host changes.
     private func strings(for code: String) -> [String: String] {
-        // Bundle(for:) with a class from the main app target returns the app
-        // bundle (containing Localizable.strings), not the test bundle.
-        let appBundle = Bundle(for: LocalizationManager.self)
+        let appBundle = Bundle.allBundles.first { $0.bundlePath.hasSuffix(".app") } ?? Bundle.main
         guard let path = appBundle.path(forResource: "Localizable",
                                          ofType: "strings",
                                          inDirectory: nil,
