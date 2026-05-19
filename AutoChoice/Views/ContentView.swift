@@ -55,7 +55,13 @@ private struct WheelTab: View {
                 .frame(maxWidth: 360)
                 .aspectRatio(1, contentMode: .fit)
                 .padding(.horizontal)
-                .animation(.spring(response: 3.5, dampingFraction: 0.85), value: store.currentRotation)
+                // FIX (lesson #36): .spring(response:3.5) is asymptotic — never
+                // precisely stops at 3.5s, so the wheel micro-wobbles AFTER the
+                // SpinTickScheduler.onComplete fires + result banner shows.
+                // Reviewer/user sees "pointer still moving but result shown" =
+                // perceived inconsistency bug. Use .timingCurve cubic-bezier
+                // ease-out for deterministic 3.5s stop matching audio scheduler.
+                .animation(.timingCurve(0.17, 0.67, 0.30, 1.0, duration: 3.5), value: store.currentRotation)
 
                 Spacer(minLength: 8)
 
@@ -195,7 +201,12 @@ private struct WheelTab: View {
         // onComplete so SwiftUI sees the isSpinning → false change first.
         Task { @MainActor in
             try? await Task.sleep(for: .seconds(3.55))
-            resultBump += 1
+            // Wrap in withAnimation so resultBanner .transition(.scale+.opacity)
+            // fires when banner enters via id change. Without wrap, banner pops
+            // in instantly without animation (audit P0 #3).
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                resultBump += 1
+            }
             tickScheduler = nil
         }
     }
