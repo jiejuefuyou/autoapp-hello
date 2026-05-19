@@ -7,6 +7,13 @@ struct AutoChoiceApp: App {
     @State private var l10n = LocalizationManager.shared
 
     init() {
+        // EAGER init: force LocalizationManager.shared (and its Bundle.main
+        // swizzle in installBundleOverride) to run BEFORE SwiftUI evaluates
+        // any Text(LocalizedStringKey(...)) in body. If we let @State default
+        // value trigger first access, swizzle could land after first
+        // localized string resolution → wrong .lproj cached.
+        _ = LocalizationManager.shared
+
         // Snapshot mode: skip onboarding so UI tests land on the main screen
         // immediately without having to dismiss a fullScreenCover.
         if ProcessInfo.processInfo.arguments.contains("-FASTLANE_SNAPSHOT") {

@@ -261,7 +261,12 @@ private struct SettingsTab: View {
                 }
             }
             .navigationTitle(Text("Settings"))
-            .sheet(isPresented: $showPaywall) { PaywallView() }
+            .sheet(isPresented: $showPaywall) {
+                PaywallView()
+                    .environment(l10n)
+                    .environment(\.locale, l10n.currentLocale)
+                    .id(l10n.override)
+            }
         }
     }
 
